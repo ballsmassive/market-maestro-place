@@ -51,6 +51,27 @@ All colors MUST be HSL.
     --shadow-product: 0 4px 20px -4px hsl(var(--primary) / 0.1);
     --shadow-hover: 0 8px 30px -8px hsl(var(--primary) / 0.2);
     --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.15);
+    
+    /* Neon Dark UI */
+    --neon-primary: 210 100% 70%;
+    --neon-secondary: 300 100% 70%;
+    --neon-accent: 120 100% 70%;
+    --neon-purple: 270 100% 70%;
+    --neon-pink: 330 100% 70%;
+    --neon-cyan: 180 100% 70%;
+    
+    /* Glassmorphism & Dark UI */
+    --glass-bg: 0 0% 0% / 0.8;
+    --glass-border: 0 0% 100% / 0.1;
+    --dark-surface: 220 26% 14%;
+    --darker-surface: 220 26% 10%;
+    
+    /* Neon Glows */
+    --glow-primary: 0 0 20px hsl(var(--neon-primary) / 0.5);
+    --glow-secondary: 0 0 20px hsl(var(--neon-secondary) / 0.5);
+    --glow-accent: 0 0 20px hsl(var(--neon-accent) / 0.5);
+    --glow-purple: 0 0 20px hsl(var(--neon-purple) / 0.5);
+    --glow-intense: 0 0 40px hsl(var(--neon-primary) / 0.8), 0 0 80px hsl(var(--neon-primary) / 0.6);
 
     --radius: 0.5rem;
 
@@ -110,6 +131,12 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-card: linear-gradient(145deg, hsl(217.2 32.6% 17.5%), hsl(217.2 32.6% 20%));
     --gradient-trust: linear-gradient(90deg, hsl(var(--secondary)), hsl(145 63% 60%));
+    
+    /* Neon Dark Gradients */
+    --gradient-neon: linear-gradient(135deg, hsl(var(--neon-primary)), hsl(var(--neon-secondary)));
+    --gradient-dark-glass: linear-gradient(135deg, hsl(var(--dark-surface) / 0.9), hsl(var(--darker-surface) / 0.9));
+    --gradient-neon-border: linear-gradient(90deg, hsl(var(--neon-primary)), hsl(var(--neon-purple)), hsl(var(--neon-cyan)));
+    --gradient-shop-card: linear-gradient(145deg, hsl(220 26% 14% / 0.95), hsl(220 26% 10% / 0.95));
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

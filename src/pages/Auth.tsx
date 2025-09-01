@@ -9,14 +9,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/hooks/use-toast';
 import { Phone, Mail, Chrome } from 'lucide-react';
+import AccountSuccessModal from '@/components/AccountSuccessModal';
 
 export default function Auth() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [authStep, setAuthStep] = useState<'method' | 'email' | 'phone-verify' | 'complete'>('method');
+  const [authStep, setAuthStep] = useState<'method' | 'email' | 'phone-verify' | 'account-success' | 'complete'>('method');
   const [authMethod, setAuthMethod] = useState<'email' | 'google'>('email');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   
   // Form states
   const [email, setEmail] = useState('');
@@ -59,6 +61,21 @@ export default function Auth() {
       }
     }
   }, [user, navigate, authStep]);
+
+  const handleStartSelling = () => {
+    setShowSuccessModal(false);
+    // TODO: Navigate to seller onboarding
+    toast({
+      title: "Seller Mode Activated! 🚀",
+      description: "Let's set up your store...",
+    });
+    navigate('/');
+  };
+
+  const handleContinueBrowsing = () => {
+    setShowSuccessModal(false);
+    navigate('/');
+  };
 
   // Auto-verify when user enters 6 digits
   useEffect(() => {
@@ -216,14 +233,12 @@ export default function Auth() {
       if (error) throw error;
 
       if (data?.success && data?.verified) {
-        setAuthStep('complete');
+        setAuthStep('account-success');
+        setShowSuccessModal(true);
         toast({
-          title: "Phone verified!",
-          description: "Welcome to Neo Mart!",
+          title: "Phone verification successful!",
+          description: "Welcome to our marketplace!",
         });
-        
-        // Small delay before redirect
-        setTimeout(() => navigate('/'), 1000);
       } else {
         throw new Error(data?.message || 'Invalid verification code');
       }
@@ -427,6 +442,14 @@ export default function Auth() {
             )}
           </CardContent>
         </Card>
+        
+        <AccountSuccessModal
+          open={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          userEmail={userProfile?.email}
+          onStartSelling={handleStartSelling}
+          onContinueBrowsing={handleContinueBrowsing}
+        />
       </div>
     );
   }
