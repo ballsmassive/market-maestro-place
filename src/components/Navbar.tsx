@@ -34,6 +34,14 @@ const Navbar = () => {
                 type="text"
                 placeholder="Search products, categories, or businesses..."
                 className="pl-10 w-full"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const query = (e.target as HTMLInputElement).value;
+                    if (query.trim()) {
+                      navigate(`/search?q=${encodeURIComponent(query)}`);
+                    }
+                  }
+                }}
               />
             </div>
           </div>
@@ -74,10 +82,20 @@ const Navbar = () => {
                 Sign In
               </Button>
             )}
-            <Button variant="outline" size="sm" className="animate-fade-in">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="animate-fade-in"
+              onClick={() => navigate('/seller')}
+            >
               Sell on Neo Mart
             </Button>
-            <Button variant="ghost" size="icon" className="animate-fade-in">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="animate-fade-in"
+              onClick={() => navigate('/cart')}
+            >
               <ShoppingCart className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="icon" className="md:hidden animate-fade-in">

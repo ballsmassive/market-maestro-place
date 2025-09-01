@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [currentPhase, setCurrentPhase] = useState<'splash' | 'slideshow'>('splash');
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [showKnowMore, setShowKnowMore] = useState(false);
@@ -217,8 +219,12 @@ const Hero = () => {
 
   const handleKnowMoreClick = () => {
     // Navigate to specific brand store for this product
-    console.log(`Navigating to ${currentProduct.brand} store for product: ${currentProduct.name}`);
-    // This would typically navigate to: `/store/${currentProduct.brandId}/product/${currentProduct.id}`
+    const storeId = currentProduct.brand.toLowerCase().replace(/\s+/g, '-') + '-store';
+    navigate(`/shop/${storeId}?product=${currentProduct.id}`);
+  };
+
+  const handleProductClick = () => {
+    handleKnowMoreClick();
   };
 
   if (currentPhase === 'splash') {
