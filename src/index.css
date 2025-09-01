@@ -188,7 +188,7 @@ All colors MUST be HSL.
 
 @layer components {
   .animate-fade-in {
-    @apply opacity-0 animate-in fade-in-0 duration-500;
+    @apply opacity-100 animate-in fade-in-0 duration-500;
     animation-fill-mode: both;
   }
   

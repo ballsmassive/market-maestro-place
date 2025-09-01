@@ -35,7 +35,7 @@ const ProductCard = ({
   return (
     <Card 
       onClick={handleProductClick}
-      className="group cursor-pointer transition-all duration-300 hover:shadow-neon hover:-translate-y-1 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/40 animate-fade-in overflow-hidden"
+      className="group cursor-pointer transition-all duration-300 hover:shadow-neon hover:-translate-y-1 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/40 overflow-hidden"
     >
       <CardContent className="p-0">
         <div className="relative">
