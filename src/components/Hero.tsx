@@ -295,7 +295,7 @@ const Hero = () => {
           {/* Product Image */}
           <div 
             className="relative mb-6 group cursor-pointer"
-            onClick={handleKnowMoreClick}
+            onClick={handleProductClick}
           >
             <img 
               src={currentProduct.image}
@@ -304,22 +304,16 @@ const Hero = () => {
             />
             
             {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse">
+            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse pointer-events-none">
               <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
             </div>
 
-            {/* Know More Button (on hover) */}
-            <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleKnowMoreClick();
-                }}
-                className="bg-neon-primary hover:bg-neon-primary/80 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg shadow-neon-intense animate-glow-pulse"
-              >
-                Know More
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
+            {/* Click indicator overlay */}
+            <div className="absolute inset-0 bg-black/20 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              <div className="bg-neon-primary/90 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-xl shadow-neon-intense animate-glow-pulse flex items-center gap-2">
+                <span>Know More</span>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
             </div>
           </div>
 
