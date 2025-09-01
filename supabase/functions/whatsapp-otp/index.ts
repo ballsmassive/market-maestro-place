@@ -100,6 +100,36 @@ serve(async (req) => {
       if (!whatsappResponse.ok) {
         const errorText = await whatsappResponse.text()
         console.error('WhatsApp API error:', errorText)
+        
+        // Handle specific error responses
+        if (whatsappResponse.status === 429) {
+          try {
+            const errorData = JSON.parse(errorText)
+            if (errorData.error === 'cooldown_active') {
+              const retryAfter = errorData.retry_after_seconds || 30
+              return new Response(
+                JSON.stringify({ 
+                  success: false, 
+                  error: 'cooldown_active',
+                  retry_after_seconds: retryAfter,
+                  message: `Please wait ${retryAfter} seconds before requesting another code.`
+                }),
+                { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+              )
+            }
+          } catch (parseError) {
+            // Fallback if JSON parsing fails
+            return new Response(
+              JSON.stringify({ 
+                success: false, 
+                error: 'cooldown_active',
+                message: 'Please wait 30 seconds before requesting another code.'
+              }),
+              { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            )
+          }
+        }
+        
         throw new Error(`WhatsApp API error: ${whatsappResponse.status}`)
       }
 

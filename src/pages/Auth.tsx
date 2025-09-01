@@ -30,16 +30,14 @@ export default function Auth() {
     if (user && authStep === 'complete') {
       navigate('/');
     }
-    // Handle Google OAuth redirect - if user is authenticated but still on method step, skip phone verification
+    // Handle Google OAuth redirect - if user is authenticated but still on method step, move to phone verification
     if (user && authStep === 'method') {
       setUserProfile(user);
-      setAuthStep('complete');
+      setAuthStep('phone-verify');
       toast({
         title: "Google Sign In Successful!",
-        description: "Welcome to Neo Mart!",
+        description: "Now please verify your phone number.",
       });
-      // Redirect after small delay
-      setTimeout(() => navigate('/'), 1000);
     }
   }, [user, navigate, authStep]);
 
@@ -133,6 +131,8 @@ export default function Auth() {
 
   const handlePhoneVerification = async () => {
     setLoading(true);
+    let responseData: any = null;
+    
     try {
       const { data, error } = await supabase.functions.invoke('whatsapp-otp', {
         body: {
@@ -141,6 +141,8 @@ export default function Auth() {
           message: `Your verification code from Neo Mart: Please verify your account.`
         }
       });
+
+      responseData = data;
 
       if (error) throw error;
 
@@ -156,7 +158,11 @@ export default function Auth() {
     } catch (error: any) {
       let errorMessage = error.message;
       
-      if (error.message?.includes('rate_limited')) {
+      // Handle cooldown error specifically 
+      if (error.message?.includes('cooldown_active') || responseData?.error === 'cooldown_active') {
+        const retryAfter = responseData?.retry_after_seconds || 30;
+        errorMessage = `Please wait ${retryAfter} seconds before requesting another code.`;
+      } else if (error.message?.includes('rate_limited')) {
         errorMessage = 'Too many attempts. Please wait 10 minutes before trying again.';
       } else if (error.message?.includes('WhatsApp API error')) {
         errorMessage = 'WhatsApp service is temporarily unavailable. Please try again later.';
