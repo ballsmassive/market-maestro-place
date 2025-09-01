@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
 
 const Shop = () => {
   const { shopId } = useParams();
@@ -63,100 +64,100 @@ const Shop = () => {
       'alibaba-tech': [
         {
           id: 1,
-          name: "Gaming Mouse Pro X1",
+          title: "Gaming Mouse Pro X1",
           price: 59.99,
           originalPrice: 79.99,
           rating: 4.8,
           reviews: 324,
           image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
-          discount: 25,
-          featured: productId === "1"
+          seller: "Alibaba Electronics",
+          badge: productId === "1" ? "Featured" : undefined
         },
         {
           id: 2,
-          name: "Mechanical Keyboard RGB",
+          title: "Mechanical Keyboard RGB",
           price: 129.99,
           originalPrice: 159.99,
           rating: 4.9,
           reviews: 156,
           image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=400&fit=crop",
-          discount: 19
+          seller: "Alibaba Electronics"
         },
         {
           id: 3,
-          name: "Gaming Headset Pro",
+          title: "Gaming Headset Pro",
           price: 89.99,
           originalPrice: 119.99,
           rating: 4.7,
           reviews: 89,
           image: "https://images.unsplash.com/photo-1599669454699-248893623440?w=400&h=400&fit=crop",
-          discount: 25
+          seller: "Alibaba Electronics"
         }
       ],
       'techglobal-inc': [
         {
           id: 4,
-          name: "Wireless Laptop Stand",
+          title: "Wireless Laptop Stand",
           price: 79.99,
           originalPrice: 99.99,
           rating: 4.6,
           reviews: 234,
           image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
-          discount: 20,
-          featured: productId === "4"
+          seller: "TechGlobal Inc",
+          badge: productId === "4" ? "Featured" : undefined
         },
         {
           id: 5,
-          name: "USB-C Hub Multiport",
+          title: "USB-C Hub Multiport",
           price: 45.99,
           originalPrice: 59.99,
           rating: 4.8,
           reviews: 167,
           image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=400&fit=crop",
-          discount: 23
+          seller: "TechGlobal Inc"
         },
         {
           id: 6,
-          name: "Bluetooth Speaker Pro",
+          title: "Bluetooth Speaker Pro",
           price: 149.99,
           originalPrice: 199.99,
           rating: 4.9,
           reviews: 312,
           image: "https://images.unsplash.com/photo-1599669454699-248893623440?w=400&h=400&fit=crop",
-          discount: 25
+          seller: "TechGlobal Inc"
         }
       ],
       'ecowear-fashion': [
         {
           id: 7,
-          name: "Organic Cotton T-Shirt",
+          title: "Organic Cotton T-Shirt",
           price: 29.99,
           originalPrice: 39.99,
           rating: 4.5,
           reviews: 890,
           image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
-          discount: 25,
-          featured: productId === "7"
+          seller: "EcoWear Fashion",
+          badge: productId === "7" ? "Featured" : undefined
         },
         {
           id: 8,
-          name: "Recycled Denim Jeans",
+          title: "Recycled Denim Jeans",
           price: 89.99,
           originalPrice: 119.99,
           rating: 4.7,
           reviews: 445,
           image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop",
-          discount: 25
+          seller: "EcoWear Fashion"
         },
         {
           id: 9,
-          name: "Bamboo Fiber Hoodie",
+          title: "Bamboo Fiber Hoodie",
           price: 69.99,
           originalPrice: 89.99,
           rating: 4.6,
           reviews: 278,
           image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop",
-          discount: 22
+          seller: "EcoWear Fashion"
         }
       ]
     };
@@ -246,59 +247,17 @@ const Shop = () => {
 
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {products.map((product) => (
-                  <Card 
-                    key={product.id} 
-                    className={`group bg-card/80 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300 cursor-pointer ${product.featured ? 'ring-2 ring-primary' : ''}`}
-                  >
-                    <CardContent className="p-0">
-                      <div className="relative overflow-hidden rounded-t-lg">
-                        <img 
-                          src={product.image} 
-                          alt={product.name}
-                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {product.discount > 0 && (
-                          <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">
-                            -{product.discount}%
-                          </Badge>
-                        )}
-                        {product.featured && (
-                          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground">
-                            Featured
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                          {product.name}
-                        </h3>
-                        
-                        <div className="flex items-center gap-1 mb-2">
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <Star 
-                                key={i} 
-                                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-accent fill-accent' : 'text-muted-foreground'}`}
-                              />
-                            ))}
-                          </div>
-                          <span className="text-sm text-muted-foreground">({product.reviews})</span>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="text-lg font-bold text-primary">${product.price}</span>
-                          {product.originalPrice > product.price && (
-                            <span className="text-sm text-muted-foreground line-through">${product.originalPrice}</span>
-                          )}
-                        </div>
-                        
-                        <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground">
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <ProductCard
+                    key={product.id}
+                    title={product.title}
+                    price={product.price}
+                    originalPrice={product.originalPrice}
+                    rating={product.rating}
+                    reviews={product.reviews}
+                    image={product.image}
+                    seller={product.seller}
+                    badge={product.badge}
+                  />
                 ))}
               </div>
             </div>

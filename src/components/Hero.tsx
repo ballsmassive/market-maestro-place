@@ -311,6 +311,10 @@ const Hero = () => {
             {/* Know More Button (on hover) */}
             <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <Button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleKnowMoreClick();
+                }}
                 className="bg-neon-primary hover:bg-neon-primary/80 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg shadow-neon-intense animate-glow-pulse"
               >
                 Know More
