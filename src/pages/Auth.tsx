@@ -124,18 +124,37 @@ export default function Auth() {
   const handlePhoneVerification = async () => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        phone,
+      const { data, error } = await supabase.functions.invoke('whatsapp-otp', {
+        body: {
+          action: 'send',
+          phone,
+          message: `Your verification code from Neo Mart: Please verify your account.`
+        }
       });
+
       if (error) throw error;
-      toast({
-        title: "SMS sent",
-        description: "Check your phone for the verification code.",
-      });
+
+      if (data?.success) {
+        toast({
+          title: "WhatsApp message sent!",
+          description: "Check your WhatsApp for the verification code.",
+        });
+        setVerificationCode(''); // Reset to show OTP input
+      } else {
+        throw new Error(data?.message || 'Failed to send verification code');
+      }
     } catch (error: any) {
+      let errorMessage = error.message;
+      
+      if (error.message?.includes('rate_limited')) {
+        errorMessage = 'Too many attempts. Please wait 10 minutes before trying again.';
+      } else if (error.message?.includes('WhatsApp API error')) {
+        errorMessage = 'WhatsApp service is temporarily unavailable. Please try again later.';
+      }
+      
       toast({
-        title: "Phone Verification Error",
-        description: error.message,
+        title: "Verification Error",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -146,25 +165,41 @@ export default function Auth() {
   const handleVerifyOTP = async () => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        phone,
-        token: verificationCode,
-        type: 'sms'
+      const { data, error } = await supabase.functions.invoke('whatsapp-otp', {
+        body: {
+          action: 'verify',
+          phone,
+          code: verificationCode
+        }
       });
+
       if (error) throw error;
-      
-      setAuthStep('complete');
-      toast({
-        title: "Phone verified!",
-        description: "Welcome to Neo Mart!",
-      });
-      
-      // Small delay before redirect
-      setTimeout(() => navigate('/'), 1000);
+
+      if (data?.success && data?.verified) {
+        setAuthStep('complete');
+        toast({
+          title: "Phone verified!",
+          description: "Welcome to Neo Mart!",
+        });
+        
+        // Small delay before redirect
+        setTimeout(() => navigate('/'), 1000);
+      } else {
+        throw new Error(data?.message || 'Invalid verification code');
+      }
     } catch (error: any) {
+      let errorMessage = error.message;
+      
+      if (error.message?.includes('invalid_code') || error.message?.includes('Invalid verification')) {
+        errorMessage = 'Invalid verification code. Please try again.';
+      } else if (error.message?.includes('expired')) {
+        errorMessage = 'Verification code has expired. Please request a new one.';
+        setVerificationCode(''); // Reset to phone input
+      }
+      
       toast({
         title: "Verification Error",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
