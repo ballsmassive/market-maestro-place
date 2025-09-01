@@ -287,7 +287,7 @@ export default function Auth() {
               Verify Your Phone
             </CardTitle>
             <CardDescription>
-              {verificationCode ? 'Enter the verification code sent to your phone' : 'Enter your phone number to receive a verification code'}
+              {verificationCode ? 'Enter the verification code sent to your WhatsApp' : 'Enter your phone number to receive a verification code via WhatsApp'}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
