@@ -218,12 +218,17 @@ const Hero = () => {
   const currentProduct = products[currentProductIndex];
 
   const handleKnowMoreClick = () => {
+    console.log('Product clicked:', currentProduct.name);
     // Navigate to specific brand store for this product
     const storeId = currentProduct.brand.toLowerCase().replace(/\s+/g, '-') + '-store';
+    console.log('Navigating to:', `/shop/${storeId}?product=${currentProduct.id}`);
     navigate(`/shop/${storeId}?product=${currentProduct.id}`);
   };
 
-  const handleProductClick = () => {
+  const handleProductClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('handleProductClick called');
     handleKnowMoreClick();
   };
 
@@ -294,22 +299,22 @@ const Hero = () => {
           
           {/* Product Image */}
           <div 
-            className="relative mb-6 group cursor-pointer"
+            className="relative mb-6 group cursor-pointer z-10"
             onClick={handleProductClick}
           >
             <img 
               src={currentProduct.image}
               alt={currentProduct.name}
-              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105 pointer-events-none"
             />
             
             {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse pointer-events-none">
+            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse pointer-events-none z-20">
               <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
             </div>
 
             {/* Click indicator overlay */}
-            <div className="absolute inset-0 bg-black/20 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="absolute inset-0 bg-black/20 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30">
               <div className="bg-neon-primary/90 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-xl shadow-neon-intense animate-glow-pulse flex items-center gap-2">
                 <span>Know More</span>
                 <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -317,8 +322,11 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Product Info */}
-          <div className="text-center mb-6">
+          {/* Product Info - Also Clickable */}
+          <div 
+            className="text-center mb-6 cursor-pointer z-10" 
+            onClick={handleProductClick}
+          >
             <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground mb-2">
               {currentProduct.name}
             </h2>
