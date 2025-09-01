@@ -255,8 +255,8 @@ const ShopProductGrid = () => {
               </CardContent>
             </Card>
 
-            {/* Products Grid - Mobile Optimized */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mb-6">
+            {/* Products Grid - Mobile Optimized with Better Spacing */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10">
               {shopData.products.map((product, productIndex) => (
                 <div 
                   key={productIndex}

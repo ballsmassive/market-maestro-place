@@ -92,7 +92,8 @@ export default {
 				'gradient-neon': 'var(--gradient-neon)',
 				'gradient-dark-glass': 'var(--gradient-dark-glass)',
 				'gradient-neon-border': 'var(--gradient-neon-border)',
-				'gradient-shop-card': 'var(--gradient-shop-card)'
+				'gradient-shop-card': 'var(--gradient-shop-card)',
+				'gradient-trust-dark': 'var(--gradient-trust-dark)'
 			},
 			boxShadow: {
 				'product': 'var(--shadow-product)',
@@ -149,6 +150,10 @@ export default {
 				'shimmer': {
 					'0%': { transform: 'translateX(-100%)' },
 					'100%': { transform: 'translateX(100%)' }
+				},
+				'slide-logos': {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(-100%)' }
 				}
 			},
 			animation: {
@@ -161,7 +166,8 @@ export default {
 				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
 				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
-				'shimmer': 'shimmer 2s linear infinite'
+				'shimmer': 'shimmer 2s linear infinite',
+				'slide-logos': 'slide-logos 30s linear infinite'
 			}
 		}
 	},
