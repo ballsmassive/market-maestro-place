@@ -30,14 +30,33 @@ export default function Auth() {
     if (user && authStep === 'complete') {
       navigate('/');
     }
-    // Handle Google OAuth redirect - if user is authenticated but still on method step, move to phone verification
+    // Handle Google OAuth redirect - check if this is a new user or returning user
     if (user && authStep === 'method') {
       setUserProfile(user);
-      setAuthStep('phone-verify');
-      toast({
-        title: "Google Sign In Successful!",
-        description: "Now please verify your phone number.",
-      });
+      
+      // Check if this is a new user by looking at created_at vs current time
+      // If user was created in the last few minutes, it's likely a signup
+      const userCreatedAt = new Date(user.created_at);
+      const now = new Date();
+      const timeDiff = now.getTime() - userCreatedAt.getTime();
+      const isNewUser = timeDiff < 2 * 60 * 1000; // Less than 2 minutes old = new user
+      
+      if (isNewUser) {
+        // New Google user - require phone verification
+        setAuthStep('phone-verify');
+        toast({
+          title: "Google Sign Up Successful!",
+          description: "Now please verify your phone number.",
+        });
+      } else {
+        // Existing Google user - sign in directly
+        setAuthStep('complete');
+        toast({
+          title: "Welcome back!",
+          description: "You have been signed in successfully.",
+        });
+        setTimeout(() => navigate('/'), 1000);
+      }
     }
   }, [user, navigate, authStep]);
 
@@ -72,6 +91,7 @@ export default function Auth() {
           });
         }
       } else {
+        // Sign in - no phone verification needed for existing users
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -79,8 +99,12 @@ export default function Auth() {
         if (error) throw error;
         
         if (data.user) {
-          setUserProfile(data.user);
-          setAuthStep('phone-verify');
+          setAuthStep('complete');
+          toast({
+            title: "Welcome back!",
+            description: "You have been signed in successfully.",
+          });
+          setTimeout(() => navigate('/'), 1000);
         }
       }
     } catch (error: any) {
