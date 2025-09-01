@@ -244,13 +244,13 @@ const Hero = () => {
         <div className="relative text-center z-10">
           <div className="animate-splash-text">
             <Sparkles className="h-16 w-16 text-neon-primary mx-auto mb-6 animate-neon-pulse" />
-            <h1 className="text-6xl md:text-8xl font-bold text-primary-foreground mb-6">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-primary-foreground mb-6">
               Welcome to
               <span className="block bg-gradient-to-r from-neon-primary via-neon-accent to-neon-secondary bg-clip-text text-transparent">
-                Neo Mart
+                NeoMart
               </span>
             </h1>
-            <p className="text-2xl md:text-3xl text-primary-foreground/90 mb-8">
+            <p className="text-lg sm:text-2xl md:text-3xl text-primary-foreground/90 mb-8">
               Your Gateway to Premium Brands
             </p>
           </div>
@@ -283,70 +283,66 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/30" />
       
       {/* Product slideshow */}
-      <div className="relative w-full max-w-4xl mx-auto px-4 animate-product-slide-in">
-        <div className="relative bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-3xl p-8 shadow-neon">
+      <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 animate-product-slide-in">
+        <div className="relative bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-neon">
           
           {/* Product Image */}
           <div 
             className="relative mb-6 group cursor-pointer"
-            onMouseEnter={() => setShowKnowMore(true)}
-            onMouseLeave={() => setShowKnowMore(false)}
+            onClick={handleKnowMoreClick}
           >
             <img 
               src={currentProduct.image}
               alt={currentProduct.name}
-              className="w-full h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
             />
             
             {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-neon px-4 py-2 rounded-full shadow-neon-intense animate-glow-pulse">
-              <span className="text-black font-bold text-lg">{currentProduct.discount}</span>
+            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse">
+              <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
             </div>
 
             {/* Know More Button (on hover) */}
-            {showKnowMore && (
-              <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center animate-fade-in">
-                <Button 
-                  onClick={handleKnowMoreClick}
-                  className="bg-neon-primary hover:bg-neon-primary/80 text-black font-bold px-8 py-4 text-lg shadow-neon-intense animate-glow-pulse"
-                >
-                  Know More
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            )}
+            <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Button 
+                className="bg-neon-primary hover:bg-neon-primary/80 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg shadow-neon-intense animate-glow-pulse"
+              >
+                Know More
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              </Button>
+            </div>
           </div>
 
           {/* Product Info */}
           <div className="text-center mb-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground mb-2">
               {currentProduct.name}
             </h2>
-            <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
               {[...Array(5)].map((_, i) => (
                 <Star 
                   key={i} 
-                  className={`h-5 w-5 ${
+                  className={`h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
                     i < Math.floor(currentProduct.rating) 
                       ? 'text-neon-accent fill-current' 
                       : 'text-muted-foreground'
                   }`} 
                 />
               ))}
-              <span className="text-primary-foreground/80 ml-2">{currentProduct.rating}</span>
+              <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
             </div>
           </div>
 
           {/* Brand Info - Bottom Left */}
-          <div className="absolute bottom-6 left-6 flex items-center gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-xl px-4 py-3 shadow-neon">
+          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex items-center gap-2 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-3 shadow-neon">
             <img 
               src={currentProduct.brandLogo} 
               alt={`${currentProduct.brand} logo`}
-              className="w-8 h-8 rounded-full object-cover border-2 border-neon-primary/30"
+              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-neon-primary/30"
             />
             <div>
-              <div className="text-sm text-primary-foreground/70">By</div>
-              <div className="text-lg font-bold text-neon-primary">{currentProduct.brand}</div>
+              <div className="text-xs sm:text-sm text-primary-foreground/70">By</div>
+              <div className="text-sm sm:text-lg font-bold text-neon-primary">{currentProduct.brand}</div>
             </div>
           </div>
 

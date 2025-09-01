@@ -152,8 +152,8 @@ export default {
 					'100%': { transform: 'translateX(100%)' }
 				},
 				'slide-logos': {
-					'0%': { transform: 'translateX(100%)' },
-					'100%': { transform: 'translateX(-100%)' }
+					'0%': { transform: 'translateX(0%)' },
+					'100%': { transform: 'translateX(-33.333%)' }
 				},
 				'splash-text': {
 					'0%': { opacity: '0', transform: 'scale(0.8) translateY(30px)' },
@@ -188,7 +188,7 @@ export default {
 				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'shimmer': 'shimmer 2s linear infinite',
-				'slide-logos': 'slide-logos 30s linear infinite',
+				'slide-logos': 'slide-logos 45s linear infinite',
 				'splash-text': 'splash-text 3s ease-in-out',
 				'brand-cascade': 'brand-cascade 3s ease-in-out',
 				'product-slide-in': 'product-slide-in 0.6s ease-out',

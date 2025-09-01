@@ -46,8 +46,16 @@ const SearchSection = () => {
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     setShowSuggestions(false);
-    // TODO: Implement search functionality
     console.log("Searching for:", query);
+    // Navigate to search results showing products from different brands
+    // This would typically navigate to: `/search?q=${encodeURIComponent(query)}`
+  };
+
+  // Handle product suggestion click
+  const handleProductClick = (product: string) => {
+    console.log(`Navigating to products for: ${product}`);
+    // This would show product cards from different brands for this product type
+    handleSearch(product);
   };
 
   const filteredSuggestions = suggestions.filter(item =>
@@ -97,7 +105,7 @@ const SearchSection = () => {
                 {filteredSuggestions.map((suggestion, index) => (
                   <button
                     key={index}
-                    onClick={() => handleSearch(suggestion.name)}
+                    onClick={() => handleProductClick(suggestion.name)}
                     className="w-full text-left p-2 sm:p-3 hover:bg-neon-primary/10 rounded-lg transition-colors group"
                   >
                     <div className="flex items-center justify-between">
@@ -132,7 +140,7 @@ const SearchSection = () => {
             {trendingSearches.map((trend, index) => (
               <button
                 key={index}
-                onClick={() => handleSearch(trend)}
+                onClick={() => handleProductClick(trend)}
                 className="group px-3 sm:px-4 py-1.5 sm:py-2 bg-surface-dark/30 hover:bg-neon-primary/10 border border-glass-border hover:border-neon-primary/30 rounded-full transition-all duration-300"
               >
                 <span className="text-xs sm:text-sm text-muted-foreground group-hover:text-neon-primary transition-colors">

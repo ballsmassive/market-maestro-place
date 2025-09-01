@@ -1,34 +1,59 @@
 import { Shield, Verified } from "lucide-react";
 
 const TrustedPartners = () => {
+  // Get brand logos from actual companies in the system
   const partners = [
     {
-      name: "TechGlobal Inc",
-      logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=80&h=80&fit=crop&crop=center"
+      name: "Alibaba Electronics",
+      logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center"
     },
     {
-      name: "EcoWear",
-      logo: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=80&h=80&fit=crop&crop=center"
+      name: "Conta Tech",
+      logo: "https://images.unsplash.com/photo-1560472355-536de3962603?w=100&h=100&fit=crop&crop=center"
     },
     {
-      name: "Artisan Woods",
-      logo: "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=80&h=80&fit=crop&crop=center"
+      name: "ViewMax Pro",
+      logo: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=100&h=100&fit=crop&crop=center"
     },
     {
-      name: "Digital Solutions",
-      logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop&crop=center"
+      name: "KeyCraft",
+      logo: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=100&h=100&fit=crop&crop=center"
     },
     {
-      name: "Green Tech",
-      logo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=center"
+      name: "SoundWave Audio",
+      logo: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=100&h=100&fit=crop&crop=center"
     },
     {
-      name: "Craft Masters",
-      logo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=center"
+      name: "StyleMax",
+      logo: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "FashionHub",
+      logo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "TimeElite",
+      logo: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "VisionCraft",
+      logo: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "LuxeBags Co",
+      logo: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "BrewMaster",
+      logo: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop&crop=center"
+    },
+    {
+      name: "CleanAir Pro",
+      logo: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=100&h=100&fit=crop&crop=center"
     }
   ];
 
-  // Duplicate for seamless infinite scroll
+  // Triple for continuous seamless scroll
   const duplicatedPartners = [...partners, ...partners, ...partners];
 
   return (
