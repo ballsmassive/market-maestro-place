@@ -1,7 +1,7 @@
 import { Search, ShoppingCart, User, Menu, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
