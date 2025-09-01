@@ -1,6 +1,7 @@
 import { Star, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   title: string;
@@ -23,8 +24,19 @@ const ProductCard = ({
   seller,
   badge
 }: ProductCardProps) => {
+  const navigate = useNavigate();
+
+  const handleProductClick = () => {
+    // Navigate to shop page with focus on this product
+    const storeId = seller.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    navigate(`/shop/${storeId}?product=${title.toLowerCase().replace(/\s+/g, '-')}`);
+  };
+
   return (
-    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-neon hover:-translate-y-1 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/40 animate-fade-in overflow-hidden">
+    <Card 
+      onClick={handleProductClick}
+      className="group cursor-pointer transition-all duration-300 hover:shadow-neon hover:-translate-y-1 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/40 animate-fade-in overflow-hidden"
+    >
       <CardContent className="p-0">
         <div className="relative">
           <img
@@ -38,6 +50,9 @@ const ProductCard = ({
             </span>
           )}
           <Button
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click when clicking heart
+            }}
             variant="ghost"
             size="icon"
             className="absolute top-1.5 right-1.5 w-7 h-7 bg-glass-bg hover:bg-neon-primary/10 border border-glass-border hover:border-neon-primary/40 transition-all"
@@ -82,6 +97,9 @@ const ProductCard = ({
           <p className="text-xs text-muted-foreground mb-2.5 truncate">by {seller}</p>
 
           <Button 
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click when clicking add to cart
+            }}
             className="w-full h-8 text-xs bg-neon-primary/10 border border-neon-primary/30 text-neon-primary hover:bg-neon-primary/20 hover:border-neon-primary/50 transition-all group/btn" 
             variant="outline"
           >

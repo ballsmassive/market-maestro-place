@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ArrowRight, Verified, TrendingUp } from "lucide-react";
 import ProductCard from "./ProductCard";
+import { useNavigate } from "react-router-dom";
 
 interface Shop {
   id: string;
@@ -32,6 +33,9 @@ interface ShopData {
 }
 
 const ShopProductGrid = () => {
+  const navigate = useNavigate();
+
+  // Existing shop data...
   const shopsData: ShopData[] = [
     {
       shop: {
@@ -244,6 +248,7 @@ const ShopProductGrid = () => {
                   </div>
                   
                   <Button 
+                    onClick={() => navigate(`/shop/${shopData.shop.id}`)}
                     variant="outline" 
                     className="border-neon-primary/30 text-neon-primary hover:bg-neon-primary/10 hover:border-neon-primary/60 transition-all group/btn text-xs sm:text-sm px-2 sm:px-4 h-8 sm:h-9 md:h-10 flex-shrink-0"
                   >
@@ -271,6 +276,7 @@ const ShopProductGrid = () => {
             {/* See More Button */}
             <div className="text-center">
               <Button 
+                onClick={() => navigate(`/shop/${shopData.shop.id}`)}
                 variant="ghost" 
                 className="group text-neon-cyan hover:text-neon-cyan hover:bg-neon-cyan/10 border border-neon-cyan/30 hover:border-neon-cyan/60 transition-all text-xs sm:text-sm h-8 sm:h-9 px-3 sm:px-4"
               >
