@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { toast } from '@/hooks/use-toast';
 import { Phone, Mail, Chrome } from 'lucide-react';
@@ -15,27 +14,30 @@ export default function Auth() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'verify' | 'phone'>('signin');
+  const [authStep, setAuthStep] = useState<'method' | 'email' | 'phone-verify' | 'complete'>('method');
+  const [authMethod, setAuthMethod] = useState<'email' | 'google'>('email');
+  const [isSignUp, setIsSignUp] = useState(false);
   
   // Form states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
+  const [userProfile, setUserProfile] = useState<any>(null);
   
   useEffect(() => {
-    if (user) {
+    if (user && authStep === 'complete') {
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user, navigate, authStep]);
 
-  const handleEmailAuth = async (isSignUp: boolean) => {
+  const handleEmailAuth = async () => {
     setLoading(true);
     try {
-      const redirectUrl = `${window.location.origin}/`;
+      const redirectUrl = `${window.location.origin}/auth`;
       
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -43,18 +45,26 @@ export default function Auth() {
           }
         });
         if (error) throw error;
-        toast({
-          title: "Check your email",
-          description: "We've sent you a verification link.",
-        });
-        setAuthMode('verify');
+        
+        if (data.user) {
+          setUserProfile(data.user);
+          setAuthStep('phone-verify');
+          toast({
+            title: "Account created!",
+            description: "Now please verify your phone number.",
+          });
+        }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        navigate('/');
+        
+        if (data.user) {
+          setUserProfile(data.user);
+          setAuthStep('phone-verify');
+        }
       }
     } catch (error: any) {
       toast({
@@ -70,24 +80,39 @@ export default function Auth() {
   const handleGoogleAuth = async () => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`,
+          redirectTo: `${window.location.origin}/auth`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       });
-      if (error) throw error;
+      if (error) {
+        if (error.message.includes('provider is not enabled')) {
+          toast({
+            title: "Google Sign In Not Available",
+            description: "Google authentication needs to be configured in Supabase. Please contact support or use email authentication.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+      }
     } catch (error: any) {
       toast({
         title: "Google Sign In Error",
         description: error.message,
         variant: "destructive",
       });
+    } finally {
       setLoading(false);
     }
   };
 
-  const handlePhoneAuth = async () => {
+  const handlePhoneVerification = async () => {
     setLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOtp({
@@ -98,10 +123,9 @@ export default function Auth() {
         title: "SMS sent",
         description: "Check your phone for the verification code.",
       });
-      setAuthMode('verify');
     } catch (error: any) {
       toast({
-        title: "Phone Authentication Error",
+        title: "Phone Verification Error",
         description: error.message,
         variant: "destructive",
       });
@@ -119,7 +143,15 @@ export default function Auth() {
         type: 'sms'
       });
       if (error) throw error;
-      navigate('/');
+      
+      setAuthStep('complete');
+      toast({
+        title: "Phone verified!",
+        description: "Welcome to Neo Mart!",
+      });
+      
+      // Small delay before redirect
+      setTimeout(() => navigate('/'), 1000);
     } catch (error: any) {
       toast({
         title: "Verification Error",
@@ -131,73 +163,104 @@ export default function Auth() {
     }
   };
 
-  const sendMagicLink = async () => {
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-        }
-      });
-      if (error) throw error;
-      toast({
-        title: "Magic link sent",
-        description: "Check your email for the sign-in link.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Magic Link Error", 
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (authMode === 'verify') {
+  // Step 1: Choose authentication method
+  if (authStep === 'method') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="bg-gradient-hero bg-clip-text text-transparent">
-              Verify Your Code
+              Welcome to Neo Mart
             </CardTitle>
             <CardDescription>
-              Enter the verification code we sent to your {phone ? 'phone' : 'email'}
+              Choose how you'd like to sign in or create an account
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex justify-center">
-              <InputOTP 
-                maxLength={6} 
-                value={verificationCode}
-                onChange={setVerificationCode}
+            <div className="space-y-2">
+              <Button 
+                onClick={() => {
+                  setAuthMethod('email');
+                  setAuthStep('email');
+                }}
+                className="w-full"
+                variant="outline"
               >
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
+                <Mail className="w-4 h-4 mr-2" />
+                Continue with Email
+              </Button>
+              <Button 
+                onClick={() => {
+                  setAuthMethod('google');
+                  handleGoogleAuth();
+                }}
+                className="w-full"
+                variant="outline"
+              >
+                <Chrome className="w-4 h-4 mr-2" />
+                Continue with Google
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Step 2: Email authentication (if email method chosen)
+  if (authStep === 'email') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="bg-gradient-hero bg-clip-text text-transparent">
+              {isSignUp ? 'Create Account' : 'Sign In'}
+            </CardTitle>
+            <CardDescription>
+              Enter your email and password
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={isSignUp ? "Create a password" : "Enter your password"}
+              />
             </div>
             <Button 
-              onClick={phone ? handleVerifyOTP : () => {}} 
-              disabled={loading || verificationCode.length !== 6}
+              onClick={handleEmailAuth} 
+              disabled={loading || !email || !password}
               className="w-full"
             >
-              {loading ? 'Verifying...' : 'Verify Code'}
+              {loading ? (isSignUp ? 'Creating Account...' : 'Signing In...') : (isSignUp ? 'Create Account' : 'Sign In')}
             </Button>
             <Button 
               variant="ghost" 
-              onClick={() => setAuthMode('signin')}
+              onClick={() => setIsSignUp(!isSignUp)}
               className="w-full"
             >
-              Back to Sign In
+              {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+            </Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => setAuthStep('method')}
+              className="w-full"
+            >
+              Back to Methods
             </Button>
           </CardContent>
         </Card>
@@ -205,138 +268,90 @@ export default function Auth() {
     );
   }
 
+  // Step 3: Phone verification
+  if (authStep === 'phone-verify') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="bg-gradient-hero bg-clip-text text-transparent">
+              Verify Your Phone
+            </CardTitle>
+            <CardDescription>
+              {verificationCode ? 'Enter the verification code sent to your phone' : 'Enter your phone number to receive a verification code'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {!verificationCode ? (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+1234567890"
+                  />
+                </div>
+                <Button 
+                  onClick={handlePhoneVerification} 
+                  disabled={loading || !phone}
+                  className="w-full"
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  {loading ? 'Sending Code...' : 'Send Verification Code'}
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center">
+                  <InputOTP 
+                    maxLength={6} 
+                    value={verificationCode}
+                    onChange={setVerificationCode}
+                  >
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </div>
+                <Button 
+                  onClick={handleVerifyOTP} 
+                  disabled={loading || verificationCode.length !== 6}
+                  className="w-full"
+                >
+                  {loading ? 'Verifying...' : 'Verify Code'}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setVerificationCode('')}
+                  className="w-full"
+                >
+                  Change Phone Number
+                </Button>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Default fallback
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="bg-gradient-hero bg-clip-text text-transparent">
-            Welcome to Neo Mart
+            Loading...
           </CardTitle>
-          <CardDescription>
-            Sign in to your account or create a new one
-          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <Tabs value={authMode} onValueChange={(value) => setAuthMode(value as any)}>
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              <TabsTrigger value="phone">Phone</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="signin" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                />
-              </div>
-              <Button 
-                onClick={() => handleEmailAuth(false)} 
-                disabled={loading || !email || !password}
-                className="w-full"
-              >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={sendMagicLink}
-                disabled={loading || !email}
-                className="w-full"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Send Magic Link
-              </Button>
-            </TabsContent>
-            
-            <TabsContent value="signup" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="signup-email">Email</Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signup-password">Password</Label>
-                <Input
-                  id="signup-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Create a password"
-                />
-              </div>
-              <Button 
-                onClick={() => handleEmailAuth(true)} 
-                disabled={loading || !email || !password}
-                className="w-full"
-              >
-                {loading ? 'Creating account...' : 'Sign Up'}
-              </Button>
-            </TabsContent>
-            
-            <TabsContent value="phone" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1234567890"
-                />
-              </div>
-              <Button 
-                onClick={handlePhoneAuth} 
-                disabled={loading || !phone}
-                className="w-full"
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                {loading ? 'Sending code...' : 'Send SMS Code'}
-              </Button>
-            </TabsContent>
-          </Tabs>
-          
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <Button 
-              variant="outline" 
-              onClick={handleGoogleAuth}
-              disabled={loading}
-              className="w-full mt-4"
-            >
-              <Chrome className="w-4 h-4 mr-2" />
-              Google
-            </Button>
-          </div>
-        </CardContent>
       </Card>
     </div>
   );
