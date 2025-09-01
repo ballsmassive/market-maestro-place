@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      phone_verifications: {
+        Row: {
+          attempts: number
+          created_at: string
+          expires_at: string
+          id: string
+          phone_number: string
+          status: string
+          user_id: string | null
+          verified_at: string | null
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          expires_at?: string
+          id?: string
+          phone_number: string
+          status?: string
+          user_id?: string | null
+          verified_at?: string | null
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          expires_at?: string
+          id?: string
+          phone_number?: string
+          status?: string
+          user_id?: string | null
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -21,6 +54,7 @@ export type Database = {
           display_name: string | null
           id: string
           phone_number: string | null
+          phone_verified: boolean
           updated_at: string
           user_id: string
         }
@@ -30,6 +64,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           phone_number?: string | null
+          phone_verified?: boolean
           updated_at?: string
           user_id: string
         }
@@ -39,6 +74,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           phone_number?: string | null
+          phone_verified?: boolean
           updated_at?: string
           user_id?: string
         }
@@ -49,7 +85,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_expired_verifications: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
