@@ -16,7 +16,7 @@ const Navbar = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
-    <nav className="bg-background border-b border-border shadow-sm">
+    <nav className="bg-background border-b border-border shadow-sm relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -52,14 +52,14 @@ const Navbar = () => {
               variant="ghost" 
               size="icon"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="animate-fade-in"
+              className="navbar-button"
             >
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="animate-fade-in">
+                  <Button variant="ghost" size="sm" className="navbar-button">
                     <User className="h-4 w-4 mr-2" />
                     Account
                   </Button>
@@ -75,7 +75,7 @@ const Navbar = () => {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="animate-fade-in"
+                className="navbar-button"
                 onClick={() => navigate('/auth')}
               >
                 <User className="h-4 w-4 mr-2" />
@@ -85,7 +85,7 @@ const Navbar = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="animate-fade-in"
+              className="navbar-button"
               onClick={() => navigate('/seller')}
             >
               Sell on Neo Mart
@@ -93,12 +93,12 @@ const Navbar = () => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="animate-fade-in"
+              className="navbar-button"
               onClick={() => navigate('/cart')}
             >
               <ShoppingCart className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="md:hidden animate-fade-in">
+            <Button variant="ghost" size="icon" className="md:hidden navbar-button">
               <Menu className="h-4 w-4" />
             </Button>
           </div>

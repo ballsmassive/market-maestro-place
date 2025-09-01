@@ -170,3 +170,16 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .animate-fade-in {
+    @apply opacity-0 animate-in fade-in-0 duration-500;
+    animation-fill-mode: both;
+  }
+  
+  .navbar-button {
+    @apply pointer-events-auto cursor-pointer;
+    position: relative;
+    z-index: 10;
+  }
+}
