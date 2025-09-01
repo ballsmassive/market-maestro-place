@@ -138,6 +138,21 @@ All colors MUST be HSL.
     --gradient-neon-border: linear-gradient(90deg, hsl(var(--neon-primary)), hsl(var(--neon-purple)), hsl(var(--neon-cyan)));
     --gradient-shop-card: linear-gradient(145deg, hsl(220 26% 14% / 0.95), hsl(220 26% 10% / 0.95));
     --gradient-trust-dark: linear-gradient(135deg, hsl(220 26% 14%), hsl(240 26% 18%));
+    
+    /* Neon Dark UI Colors */
+    --neon-primary: 210 100% 70%;
+    --neon-secondary: 300 100% 70%;
+    --neon-accent: 120 100% 70%;
+    --neon-purple: 270 100% 70%;
+    --neon-pink: 330 100% 70%;
+    --neon-cyan: 180 100% 70%;
+    
+    /* Glassmorphism & Dark UI */
+    --glass-bg: 0 0% 0% / 0.8;
+    --glass-border: 0 0% 100% / 0.1;
+    --dark-surface: 220 26% 14%;
+    --darker-surface: 220 26% 10%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
