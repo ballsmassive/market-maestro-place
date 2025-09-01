@@ -24,21 +24,31 @@ export default function Auth() {
   const [phone, setPhone] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [userProfile, setUserProfile] = useState<any>(null);
+  const [codeSent, setCodeSent] = useState(false);
   
   useEffect(() => {
     if (user && authStep === 'complete') {
       navigate('/');
     }
-    // Handle Google OAuth redirect - if user is authenticated but still on method step, move to phone verification
+    // Handle Google OAuth redirect - if user is authenticated but still on method step, skip phone verification
     if (user && authStep === 'method') {
       setUserProfile(user);
-      setAuthStep('phone-verify');
+      setAuthStep('complete');
       toast({
         title: "Google Sign In Successful!",
-        description: "Now please verify your phone number.",
+        description: "Welcome to Neo Mart!",
       });
+      // Redirect after small delay
+      setTimeout(() => navigate('/'), 1000);
     }
   }, [user, navigate, authStep]);
+
+  // Auto-verify when user enters 6 digits
+  useEffect(() => {
+    if (verificationCode.length === 6 && authStep === 'phone-verify') {
+      handleVerifyOTP();
+    }
+  }, [verificationCode]);
 
   const handleEmailAuth = async () => {
     setLoading(true);
@@ -135,11 +145,11 @@ export default function Auth() {
       if (error) throw error;
 
       if (data?.success) {
+        setCodeSent(true);
         toast({
           title: "WhatsApp message sent!",
           description: "Check your WhatsApp for the verification code.",
         });
-        setVerificationCode(''); // Reset to show OTP input
       } else {
         throw new Error(data?.message || 'Failed to send verification code');
       }
@@ -194,7 +204,8 @@ export default function Auth() {
         errorMessage = 'Invalid verification code. Please try again.';
       } else if (error.message?.includes('expired')) {
         errorMessage = 'Verification code has expired. Please request a new one.';
-        setVerificationCode(''); // Reset to phone input
+        setVerificationCode('');
+        setCodeSent(false); // Reset to phone input
       }
       
       toast({
@@ -322,11 +333,11 @@ export default function Auth() {
               Verify Your Phone
             </CardTitle>
             <CardDescription>
-              {verificationCode ? 'Enter the verification code sent to your WhatsApp' : 'Enter your phone number to receive a verification code via WhatsApp'}
+              {codeSent ? 'Enter the verification code sent to your WhatsApp' : 'Enter your phone number to receive a verification code via WhatsApp'}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {!verificationCode ? (
+            {!codeSent ? (
               <>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
@@ -374,7 +385,10 @@ export default function Auth() {
                 </Button>
                 <Button 
                   variant="ghost" 
-                  onClick={() => setVerificationCode('')}
+                  onClick={() => {
+                    setVerificationCode('');
+                    setCodeSent(false);
+                  }}
                   className="w-full"
                 >
                   Change Phone Number
