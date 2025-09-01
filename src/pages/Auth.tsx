@@ -29,6 +29,15 @@ export default function Auth() {
     if (user && authStep === 'complete') {
       navigate('/');
     }
+    // Handle Google OAuth redirect - if user is authenticated but still on method step, move to phone verification
+    if (user && authStep === 'method') {
+      setUserProfile(user);
+      setAuthStep('phone-verify');
+      toast({
+        title: "Google Sign In Successful!",
+        description: "Now please verify your phone number.",
+      });
+    }
   }, [user, navigate, authStep]);
 
   const handleEmailAuth = async () => {
