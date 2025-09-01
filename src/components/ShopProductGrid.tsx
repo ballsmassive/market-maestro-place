@@ -189,21 +189,21 @@ const ShopProductGrid = () => {
   ];
 
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         {shopsData.map((shopData, shopIndex) => (
           <div key={shopData.shop.id} className="mb-16 last:mb-0">
             {/* Shop Header */}
-            <Card className="mb-8 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/30 transition-all duration-300 group overflow-hidden">
-              <CardContent className="p-6">
+            <Card className="mb-4 sm:mb-6 md:mb-8 bg-gradient-shop-card border border-glass-border hover:border-neon-primary/30 transition-all duration-300 group overflow-hidden">
+              <CardContent className="p-3 sm:p-4 md:p-6">
                 {/* Background glow effect */}
                 <div className="absolute inset-0 bg-gradient-neon opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
                 
                 <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
                     {/* Shop Logo with neon border */}
-                    <div className="relative">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-neon-primary/20 group-hover:border-neon-primary/60 transition-colors shadow-neon">
+                    <div className="relative flex-shrink-0">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-lg md:rounded-xl overflow-hidden border-2 border-neon-primary/20 group-hover:border-neon-primary/60 transition-colors shadow-neon">
                         <img 
                           src={shopData.shop.logo} 
                           alt={shopData.shop.name}
@@ -211,32 +211,33 @@ const ShopProductGrid = () => {
                         />
                       </div>
                       {shopData.shop.isVerified && (
-                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-neon-primary rounded-full flex items-center justify-center shadow-neon">
-                          <Verified className="w-3 h-3 text-surface-darker" />
+                        <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 bg-neon-primary rounded-full flex items-center justify-center shadow-neon">
+                          <Verified className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 text-surface-darker" />
                         </div>
                       )}
                     </div>
                     
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-neon-primary transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
+                        <h3 className="text-sm sm:text-base md:text-xl font-bold text-foreground group-hover:text-neon-primary transition-colors truncate">
                           {shopData.shop.name}
                         </h3>
                         {shopData.shop.badge && (
-                          <Badge className="bg-neon-accent/20 text-neon-accent border-neon-accent/30">
+                          <Badge className="bg-neon-accent/20 text-neon-accent border-neon-accent/30 text-xs px-1.5 py-0.5 hidden sm:inline-flex">
                             {shopData.shop.badge}
                           </Badge>
                         )}
                       </div>
-                      <p className="text-muted-foreground mb-2">{shopData.shop.description}</p>
-                      <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                        <div className="flex items-center space-x-1">
-                          <Star className="w-4 h-4 fill-neon-accent text-neon-accent" />
+                      <p className="text-muted-foreground mb-1 sm:mb-2 text-xs sm:text-sm line-clamp-1 sm:line-clamp-2">{shopData.shop.description}</p>
+                      <div className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex items-center space-x-0.5 sm:space-x-1">
+                          <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-neon-accent text-neon-accent" />
                           <span>{shopData.shop.rating}</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <TrendingUp className="w-4 h-4 text-neon-primary" />
-                          <span>{shopData.shop.totalProducts.toLocaleString()} products</span>
+                        <div className="flex items-center space-x-0.5 sm:space-x-1">
+                          <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-neon-primary" />
+                          <span className="hidden sm:inline">{shopData.shop.totalProducts.toLocaleString()} products</span>
+                          <span className="sm:hidden">{Math.round(shopData.shop.totalProducts/100)/10}k</span>
                         </div>
                       </div>
                     </div>
@@ -244,17 +245,18 @@ const ShopProductGrid = () => {
                   
                   <Button 
                     variant="outline" 
-                    className="border-neon-primary/30 text-neon-primary hover:bg-neon-primary/10 hover:border-neon-primary/60 transition-all group/btn"
+                    className="border-neon-primary/30 text-neon-primary hover:bg-neon-primary/10 hover:border-neon-primary/60 transition-all group/btn text-xs sm:text-sm px-2 sm:px-4 h-8 sm:h-9 md:h-10 flex-shrink-0"
                   >
-                    <span>Visit Store</span>
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <span className="hidden sm:inline">Visit Store</span>
+                    <span className="sm:hidden">Visit</span>
+                    <ArrowRight className="ml-1 sm:ml-2 w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Products Grid - 2 Rows */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            {/* Products Grid - Mobile Optimized */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mb-6">
               {shopData.products.map((product, productIndex) => (
                 <div 
                   key={productIndex}
@@ -270,10 +272,11 @@ const ShopProductGrid = () => {
             <div className="text-center">
               <Button 
                 variant="ghost" 
-                className="group text-neon-cyan hover:text-neon-cyan hover:bg-neon-cyan/10 border border-neon-cyan/30 hover:border-neon-cyan/60 transition-all"
+                className="group text-neon-cyan hover:text-neon-cyan hover:bg-neon-cyan/10 border border-neon-cyan/30 hover:border-neon-cyan/60 transition-all text-xs sm:text-sm h-8 sm:h-9 px-3 sm:px-4"
               >
-                <span>See more from {shopData.shop.name}</span>
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span className="hidden sm:inline">See more from {shopData.shop.name}</span>
+                <span className="sm:hidden">See more</span>
+                <ArrowRight className="ml-1 sm:ml-2 w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </div>
