@@ -154,6 +154,27 @@ export default {
 				'slide-logos': {
 					'0%': { transform: 'translateX(100%)' },
 					'100%': { transform: 'translateX(-100%)' }
+				},
+				'splash-text': {
+					'0%': { opacity: '0', transform: 'scale(0.8) translateY(30px)' },
+					'20%': { opacity: '1', transform: 'scale(1.1) translateY(0px)' },
+					'40%': { opacity: '1', transform: 'scale(1) translateY(0px)' },
+					'80%': { opacity: '1', transform: 'scale(1) translateY(0px)' },
+					'100%': { opacity: '0', transform: 'scale(0.9) translateY(-20px)' }
+				},
+				'brand-cascade': {
+					'0%': { opacity: '0', transform: 'translateY(20px) scale(0.8)' },
+					'20%': { opacity: '1', transform: 'translateY(0px) scale(1)' },
+					'80%': { opacity: '1', transform: 'translateY(0px) scale(1)' },
+					'100%': { opacity: '0', transform: 'translateY(-20px) scale(0.8)' }
+				},
+				'product-slide-in': {
+					'0%': { opacity: '0', transform: 'translateX(100%) scale(0.9)' },
+					'100%': { opacity: '1', transform: 'translateX(0%) scale(1)' }
+				},
+				'product-slide-out': {
+					'0%': { opacity: '1', transform: 'translateX(0%) scale(1)' },
+					'100%': { opacity: '0', transform: 'translateX(-100%) scale(0.9)' }
 				}
 			},
 			animation: {
@@ -167,7 +188,11 @@ export default {
 				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'shimmer': 'shimmer 2s linear infinite',
-				'slide-logos': 'slide-logos 30s linear infinite'
+				'slide-logos': 'slide-logos 30s linear infinite',
+				'splash-text': 'splash-text 3s ease-in-out',
+				'brand-cascade': 'brand-cascade 3s ease-in-out',
+				'product-slide-in': 'product-slide-in 0.6s ease-out',
+				'product-slide-out': 'product-slide-out 0.6s ease-out'
 			}
 		}
 	},
