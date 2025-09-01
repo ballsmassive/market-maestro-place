@@ -24,7 +24,7 @@ const ProductCard = ({
   badge
 }: ProductCardProps) => {
   return (
-    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-hover hover:-translate-y-1 bg-gradient-card">
+    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-hover hover:-translate-y-1 bg-gradient-card animate-fade-in hover:animate-scale-in">
       <CardContent className="p-0">
         <div className="relative">
           <img

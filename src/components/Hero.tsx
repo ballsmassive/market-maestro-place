@@ -20,10 +20,10 @@ const Hero = () => {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6">
-            Your Global
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 animate-fade-in">
+            Welcome to
             <span className="block bg-gradient-to-r from-marketplace-accent to-primary-glow bg-clip-text text-transparent">
-              Marketplace
+              Neo Mart
             </span>
           </h1>
           
