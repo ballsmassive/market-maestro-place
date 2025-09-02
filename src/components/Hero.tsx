@@ -318,32 +318,21 @@ const Hero = () => {
         <div className="relative bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-neon">
           
           {/* Product Image */}
-          <div 
-            className="relative mb-6 group cursor-pointer z-10"
-            onClick={handleProductClick}
-          >
+          <div className="relative mb-6 group z-10">
             <img 
               src={currentProduct.image}
               alt={currentProduct.name}
-              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
             />
             
             {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense animate-glow-pulse pointer-events-none z-20">
+            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none z-20">
               <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
-            </div>
-
-            {/* Click indicator overlay */}
-            <div className="absolute inset-0 bg-black/20 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30">
-              <div className="bg-neon-primary/90 text-black font-bold px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-xl shadow-neon-intense animate-glow-pulse flex items-center gap-2">
-                <span>Know More</span>
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-              </div>
             </div>
           </div>
 
           {/* Product Info and Shop Now Button */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-6 relative z-50">
             <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground mb-2">
               {currentProduct.name}
             </h2>
@@ -361,19 +350,25 @@ const Hero = () => {
               <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
             </div>
             
-            {/* Shop Now Button */}
-            <Button
-              onClick={handleProductClick}
-              className={`relative z-50 bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold transition-all duration-300 hover:scale-105 ${
-                isMobile ? 'px-6 py-3 text-base' : 'px-8 py-4 text-lg'
-              } rounded-xl shadow-neon-intense hover:shadow-neon-glow`}
-              size={isMobile ? "default" : "lg"}
-            >
-              <span className="flex items-center gap-2 pointer-events-none">
-                Shop Now
-                <ArrowRight className={isMobile ? "h-4 w-4" : "h-5 w-5"} />
-              </span>
-            </Button>
+            {/* Shop Now Button - UNIVERSALLY CLICKABLE */}
+            <div className="relative z-[9999]">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleProductClick(e);
+                }}
+                className={`bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold transition-all duration-300 hover:scale-105 ${
+                  isMobile ? 'px-8 py-4 text-lg' : 'px-12 py-5 text-xl'
+                } rounded-xl shadow-neon-intense hover:shadow-neon-glow border-2 border-transparent hover:border-neon-primary/50`}
+                size={isMobile ? "lg" : "lg"}
+              >
+                <span className="flex items-center gap-3">
+                  Shop Now
+                  <ArrowRight className={isMobile ? "h-5 w-5" : "h-6 w-6"} />
+                </span>
+              </Button>
+            </div>
           </div>
 
           {/* Brand Info - Bottom Left */}
