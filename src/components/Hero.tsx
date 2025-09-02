@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [currentPhase, setCurrentPhase] = useState<'splash' | 'slideshow'>('splash');
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [showKnowMore, setShowKnowMore] = useState(false);
@@ -362,12 +364,14 @@ const Hero = () => {
             {/* Shop Now Button */}
             <Button
               onClick={handleProductClick}
-              className="bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold px-8 py-4 text-lg rounded-xl shadow-neon-intense hover:shadow-neon-glow transition-all duration-300 animate-glow-pulse hover:scale-105"
-              size="lg"
+              className={`relative z-50 bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold transition-all duration-300 hover:scale-105 ${
+                isMobile ? 'px-6 py-3 text-base' : 'px-8 py-4 text-lg'
+              } rounded-xl shadow-neon-intense hover:shadow-neon-glow`}
+              size={isMobile ? "default" : "lg"}
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 pointer-events-none">
                 Shop Now
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className={isMobile ? "h-4 w-4" : "h-5 w-5"} />
               </span>
             </Button>
           </div>
