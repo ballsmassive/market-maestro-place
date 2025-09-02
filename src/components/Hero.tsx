@@ -340,15 +340,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Product Info - Also Clickable */}
-          <div 
-            className="text-center mb-6 cursor-pointer z-10" 
-            onClick={handleProductClick}
-          >
+          {/* Product Info and Shop Now Button */}
+          <div className="text-center mb-6">
             <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground mb-2">
               {currentProduct.name}
             </h2>
-            <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
+            <div className="flex items-center justify-center gap-1 sm:gap-2 mb-6">
               {[...Array(5)].map((_, i) => (
                 <Star 
                   key={i} 
@@ -361,6 +358,18 @@ const Hero = () => {
               ))}
               <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
             </div>
+            
+            {/* Shop Now Button */}
+            <Button
+              onClick={handleProductClick}
+              className="bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold px-8 py-4 text-lg rounded-xl shadow-neon-intense hover:shadow-neon-glow transition-all duration-300 animate-glow-pulse hover:scale-105"
+              size="lg"
+            >
+              <span className="flex items-center gap-2">
+                Shop Now
+                <ArrowRight className="h-5 w-5" />
+              </span>
+            </Button>
           </div>
 
           {/* Brand Info - Bottom Left */}
