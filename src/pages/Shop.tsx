@@ -16,6 +16,190 @@ const Shop = () => {
   // Dynamic shop data based on shopId
   const getShopData = (shopId: string) => {
     const shops = {
+      // Tech stores
+      'alibaba-electronics': {
+        name: "Alibaba Electronics",
+        logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=400&fit=crop",
+        description: "Leading global electronics retailer specializing in gaming peripherals and computer accessories.",
+        rating: 4.8,
+        reviews: 1240,
+        location: "Hangzhou, China",
+        phone: "+86 571-1234-5678",
+        email: "support@alibaba-electronics.com",
+        website: "www.alibaba-electronics.com"
+      },
+      'conta-tech': {
+        name: "Conta Tech",
+        logo: "https://images.unsplash.com/photo-1560472355-536de3962603?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&h=400&fit=crop",
+        description: "Premium laptop and computing solutions for professionals and enthusiasts.",
+        rating: 4.9,
+        reviews: 856,
+        location: "Seoul, South Korea",
+        phone: "+82 2-555-0123",
+        email: "info@conta-tech.com",
+        website: "www.conta-tech.com"
+      },
+      'viewmax-pro': {
+        name: "ViewMax Pro",
+        logo: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=1200&h=400&fit=crop",
+        description: "High-performance gaming monitors and display solutions for immersive experiences.",
+        rating: 4.7,
+        reviews: 743,
+        location: "Tokyo, Japan",
+        phone: "+81 3-5555-0123",
+        email: "support@viewmax-pro.com",
+        website: "www.viewmax-pro.com"
+      },
+      'keycraft': {
+        name: "KeyCraft",
+        logo: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=1200&h=400&fit=crop",
+        description: "Artisan mechanical keyboards crafted for typing enthusiasts and gamers.",
+        rating: 4.6,
+        reviews: 425,
+        location: "Berlin, Germany",
+        phone: "+49 30-555-0123",
+        email: "hello@keycraft.com",
+        website: "www.keycraft.com"
+      },
+      'soundwave-audio': {
+        name: "SoundWave Audio",
+        logo: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200&h=400&fit=crop",
+        description: "Premium wireless headphones and audio equipment for audiophiles.",
+        rating: 4.8,
+        reviews: 932,
+        location: "Los Angeles, CA",
+        phone: "+1 (323) 555-0456",
+        email: "support@soundwave-audio.com",
+        website: "www.soundwave-audio.com"
+      },
+      // Fashion stores
+      'stylemax': {
+        name: "StyleMax",
+        logo: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop",
+        description: "Designer sneakers and streetwear for the fashion-forward individual.",
+        rating: 4.7,
+        reviews: 1450,
+        location: "Milan, Italy",
+        phone: "+39 02-555-0123",
+        email: "info@stylemax.com",
+        website: "www.stylemax.com"
+      },
+      'fashionhub': {
+        name: "FashionHub",
+        logo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1200&h=400&fit=crop",
+        description: "Contemporary fashion and outerwear for modern lifestyles.",
+        rating: 4.5,
+        reviews: 876,
+        location: "Paris, France",
+        phone: "+33 1-5555-0123",
+        email: "hello@fashionhub.com",
+        website: "www.fashionhub.com"
+      },
+      'timeelite': {
+        name: "TimeElite",
+        logo: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&h=400&fit=crop",
+        description: "Luxury timepieces and watches from renowned craftsmen worldwide.",
+        rating: 4.9,
+        reviews: 564,
+        location: "Geneva, Switzerland",
+        phone: "+41 22-555-0123",
+        email: "contact@timeelite.com",
+        website: "www.timeelite.com"
+      },
+      'visioncraft': {
+        name: "VisionCraft",
+        logo: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1200&h=400&fit=crop",
+        description: "Designer sunglasses and optical wear with cutting-edge lens technology.",
+        rating: 4.6,
+        reviews: 689,
+        location: "Barcelona, Spain",
+        phone: "+34 93-555-0123",
+        email: "info@visioncraft.com",
+        website: "www.visioncraft.com"
+      },
+      'luxebags-co': {
+        name: "LuxeBags Co",
+        logo: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&h=400&fit=crop",
+        description: "Premium handbags and accessories crafted with finest materials.",
+        rating: 4.8,
+        reviews: 1230,
+        location: "Florence, Italy",
+        phone: "+39 055-555-0123",
+        email: "support@luxebags-co.com",
+        website: "www.luxebags-co.com"
+      },
+      // Home stores
+      'brewmaster': {
+        name: "BrewMaster",
+        logo: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=400&fit=crop",
+        description: "Smart coffee makers and brewing equipment for the perfect cup.",
+        rating: 4.7,
+        reviews: 543,
+        location: "Portland, OR",
+        phone: "+1 (503) 555-0789",
+        email: "hello@brewmaster.com",
+        website: "www.brewmaster.com"
+      },
+      'cleanair-pro': {
+        name: "CleanAir Pro",
+        logo: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=400&fit=crop",
+        description: "Advanced air purification systems for healthier indoor environments.",
+        rating: 4.6,
+        reviews: 432,
+        location: "Stockholm, Sweden",
+        phone: "+46 8-555-0123",
+        email: "support@cleanair-pro.com",
+        website: "www.cleanair-pro.com"
+      },
+      'autoclean': {
+        name: "AutoClean",
+        logo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=400&fit=crop",
+        description: "Intelligent robot vacuums and automated cleaning solutions.",
+        rating: 4.8,
+        reviews: 765,
+        location: "Munich, Germany",
+        phone: "+49 89-555-0123",
+        email: "info@autoclean.com",
+        website: "www.autoclean.com"
+      },
+      'thermotech': {
+        name: "ThermoTech",
+        logo: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=1200&h=400&fit=crop",
+        description: "Smart thermostats and climate control systems for modern homes.",
+        rating: 4.5,
+        reviews: 398,
+        location: "Copenhagen, Denmark",
+        phone: "+45 33-555-0123",
+        email: "contact@thermotech.com",
+        website: "www.thermotech.com"
+      },
+      'lightwave': {
+        name: "LightWave",
+        logo: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=200&h=200&fit=crop",
+        banner: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=1200&h=400&fit=crop",
+        description: "LED smart lighting solutions and home automation systems.",
+        rating: 4.7,
+        reviews: 621,
+        location: "Amsterdam, Netherlands",
+        phone: "+31 20-555-0123",
+        email: "hello@lightwave.com",
+        website: "www.lightwave.com"
+      },
+      // Legacy stores
       'alibaba-tech': {
         name: "Alibaba Tech Store",
         logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=200&fit=crop",
@@ -61,10 +245,11 @@ const Shop = () => {
 
   const getProducts = (shopId: string) => {
     const productsByShop = {
-      'alibaba-tech': [
+      // Tech stores products
+      'alibaba-electronics': [
         {
           id: 1,
-          title: "Gaming Mouse Pro X1",
+          title: "Wireless Gaming Mouse",
           price: 59.99,
           originalPrice: 79.99,
           rating: 4.8,
@@ -74,7 +259,355 @@ const Shop = () => {
           badge: productId === "1" ? "Featured" : undefined
         },
         {
+          id: 101,
+          title: "RGB Gaming Mousepad",
+          price: 29.99,
+          originalPrice: 39.99,
+          rating: 4.6,
+          reviews: 156,
+          image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=400&fit=crop",
+          seller: "Alibaba Electronics"
+        }
+      ],
+      'conta-tech': [
+        {
           id: 2,
+          title: "Premium Laptop",
+          price: 1299.99,
+          originalPrice: 1849.99,
+          rating: 4.9,
+          reviews: 89,
+          image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop",
+          seller: "Conta Tech",
+          badge: productId === "2" ? "Featured" : undefined
+        },
+        {
+          id: 102,
+          title: "Professional Workstation",
+          price: 2399.99,
+          originalPrice: 2999.99,
+          rating: 4.8,
+          reviews: 67,
+          image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop",
+          seller: "Conta Tech"
+        }
+      ],
+      'viewmax-pro': [
+        {
+          id: 3,
+          title: "4K Gaming Monitor",
+          price: 399.99,
+          originalPrice: 499.99,
+          rating: 4.7,
+          reviews: 234,
+          image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=400&fit=crop",
+          seller: "ViewMax Pro",
+          badge: productId === "3" ? "Featured" : undefined
+        },
+        {
+          id: 103,
+          title: "Ultrawide Curved Display",
+          price: 649.99,
+          originalPrice: 799.99,
+          rating: 4.8,
+          reviews: 145,
+          image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=400&fit=crop",
+          seller: "ViewMax Pro"
+        }
+      ],
+      'keycraft': [
+        {
+          id: 4,
+          title: "Mechanical Keyboard",
+          price: 129.99,
+          originalPrice: 149.99,
+          rating: 4.6,
+          reviews: 167,
+          image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&h=400&fit=crop",
+          seller: "KeyCraft",
+          badge: productId === "4" ? "Featured" : undefined
+        },
+        {
+          id: 104,
+          title: "Custom Keycap Set",
+          price: 79.99,
+          originalPrice: 99.99,
+          rating: 4.7,
+          reviews: 89,
+          image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=400&fit=crop",
+          seller: "KeyCraft"
+        }
+      ],
+      'soundwave-audio': [
+        {
+          id: 5,
+          title: "Wireless Headphones",
+          price: 199.99,
+          originalPrice: 299.99,
+          rating: 4.8,
+          reviews: 312,
+          image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
+          seller: "SoundWave Audio",
+          badge: productId === "5" ? "Featured" : undefined
+        },
+        {
+          id: 105,
+          title: "Premium Earbuds",
+          price: 149.99,
+          originalPrice: 199.99,
+          rating: 4.6,
+          reviews: 234,
+          image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=400&fit=crop",
+          seller: "SoundWave Audio"
+        }
+      ],
+      // Fashion stores products
+      'stylemax': [
+        {
+          id: 6,
+          title: "Designer Sneakers",
+          price: 159.99,
+          originalPrice: 259.99,
+          rating: 4.7,
+          reviews: 445,
+          image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
+          seller: "StyleMax",
+          badge: productId === "6" ? "Featured" : undefined
+        },
+        {
+          id: 106,
+          title: "Limited Edition Runners",
+          price: 199.99,
+          originalPrice: 299.99,
+          rating: 4.8,
+          reviews: 298,
+          image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
+          seller: "StyleMax"
+        }
+      ],
+      'fashionhub': [
+        {
+          id: 7,
+          title: "Premium Jacket",
+          price: 189.99,
+          originalPrice: 379.99,
+          rating: 4.5,
+          reviews: 156,
+          image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop",
+          seller: "FashionHub",
+          badge: productId === "7" ? "Featured" : undefined
+        },
+        {
+          id: 107,
+          title: "Designer Coat",
+          price: 249.99,
+          originalPrice: 399.99,
+          rating: 4.6,
+          reviews: 123,
+          image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop",
+          seller: "FashionHub"
+        }
+      ],
+      'timeelite': [
+        {
+          id: 8,
+          title: "Luxury Watch",
+          price: 899.99,
+          originalPrice: 1199.99,
+          rating: 4.9,
+          reviews: 89,
+          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
+          seller: "TimeElite",
+          badge: productId === "8" ? "Featured" : undefined
+        },
+        {
+          id: 108,
+          title: "Swiss Chronograph",
+          price: 1299.99,
+          originalPrice: 1699.99,
+          rating: 4.8,
+          reviews: 67,
+          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
+          seller: "TimeElite"
+        }
+      ],
+      'visioncraft': [
+        {
+          id: 9,
+          title: "Designer Sunglasses",
+          price: 149.99,
+          originalPrice: 199.99,
+          rating: 4.6,
+          reviews: 234,
+          image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop",
+          seller: "VisionCraft",
+          badge: productId === "9" ? "Featured" : undefined
+        },
+        {
+          id: 109,
+          title: "Polarized Aviators",
+          price: 179.99,
+          originalPrice: 249.99,
+          rating: 4.7,
+          reviews: 178,
+          image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop",
+          seller: "VisionCraft"
+        }
+      ],
+      'luxebags-co': [
+        {
+          id: 10,
+          title: "Premium Handbag",
+          price: 299.99,
+          originalPrice: 549.99,
+          rating: 4.8,
+          reviews: 167,
+          image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop",
+          seller: "LuxeBags Co",
+          badge: productId === "10" ? "Featured" : undefined
+        },
+        {
+          id: 110,
+          title: "Designer Clutch",
+          price: 199.99,
+          originalPrice: 329.99,
+          rating: 4.6,
+          reviews: 145,
+          image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop",
+          seller: "LuxeBags Co"
+        }
+      ],
+      // Home stores products
+      'brewmaster': [
+        {
+          id: 11,
+          title: "Smart Coffee Maker",
+          price: 199.99,
+          originalPrice: 249.99,
+          rating: 4.7,
+          reviews: 298,
+          image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=400&fit=crop",
+          seller: "BrewMaster",
+          badge: productId === "11" ? "Featured" : undefined
+        },
+        {
+          id: 111,
+          title: "Espresso Machine Pro",
+          price: 399.99,
+          originalPrice: 499.99,
+          rating: 4.8,
+          reviews: 189,
+          image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=400&fit=crop",
+          seller: "BrewMaster"
+        }
+      ],
+      'cleanair-pro': [
+        {
+          id: 12,
+          title: "Air Purifier",
+          price: 299.99,
+          originalPrice: 459.99,
+          rating: 4.6,
+          reviews: 234,
+          image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+          seller: "CleanAir Pro",
+          badge: productId === "12" ? "Featured" : undefined
+        },
+        {
+          id: 112,
+          title: "HEPA Filter System",
+          price: 399.99,
+          originalPrice: 599.99,
+          rating: 4.7,
+          reviews: 167,
+          image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=400&fit=crop",
+          seller: "CleanAir Pro"
+        }
+      ],
+      'autoclean': [
+        {
+          id: 13,
+          title: "Robot Vacuum",
+          price: 399.99,
+          originalPrice: 699.99,
+          rating: 4.8,
+          reviews: 345,
+          image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+          seller: "AutoClean",
+          badge: productId === "13" ? "Featured" : undefined
+        },
+        {
+          id: 113,
+          title: "Smart Mop Robot",
+          price: 299.99,
+          originalPrice: 449.99,
+          rating: 4.6,
+          reviews: 234,
+          image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+          seller: "AutoClean"
+        }
+      ],
+      'thermotech': [
+        {
+          id: 14,
+          title: "Smart Thermostat",
+          price: 149.99,
+          originalPrice: 199.99,
+          rating: 4.5,
+          reviews: 189,
+          image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=400&fit=crop",
+          seller: "ThermoTech",
+          badge: productId === "14" ? "Featured" : undefined
+        },
+        {
+          id: 114,
+          title: "WiFi Climate Controller",
+          price: 199.99,
+          originalPrice: 279.99,
+          rating: 4.6,
+          reviews: 145,
+          image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=400&fit=crop",
+          seller: "ThermoTech"
+        }
+      ],
+      'lightwave': [
+        {
+          id: 15,
+          title: "LED Smart Bulbs",
+          price: 79.99,
+          originalPrice: 119.99,
+          rating: 4.7,
+          reviews: 267,
+          image: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=400&h=400&fit=crop",
+          seller: "LightWave",
+          badge: productId === "15" ? "Featured" : undefined
+        },
+        {
+          id: 115,
+          title: "Smart Light Strip Kit",
+          price: 99.99,
+          originalPrice: 139.99,
+          rating: 4.8,
+          reviews: 198,
+          image: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=400&h=400&fit=crop",
+          seller: "LightWave"
+        }
+      ],
+      // Legacy stores products
+      'alibaba-tech': [
+        {
+          id: 201,
+          title: "Gaming Mouse Pro X1",
+          price: 59.99,
+          originalPrice: 79.99,
+          rating: 4.8,
+          reviews: 324,
+          image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
+          seller: "Alibaba Electronics",
+          badge: productId === "201" ? "Featured" : undefined
+        },
+        {
+          id: 202,
           title: "Mechanical Keyboard RGB",
           price: 129.99,
           originalPrice: 159.99,
@@ -84,7 +617,7 @@ const Shop = () => {
           seller: "Alibaba Electronics"
         },
         {
-          id: 3,
+          id: 203,
           title: "Gaming Headset Pro",
           price: 89.99,
           originalPrice: 119.99,
@@ -96,7 +629,7 @@ const Shop = () => {
       ],
       'techglobal-inc': [
         {
-          id: 4,
+          id: 204,
           title: "Wireless Laptop Stand",
           price: 79.99,
           originalPrice: 99.99,
@@ -104,10 +637,10 @@ const Shop = () => {
           reviews: 234,
           image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
           seller: "TechGlobal Inc",
-          badge: productId === "4" ? "Featured" : undefined
+          badge: productId === "204" ? "Featured" : undefined
         },
         {
-          id: 5,
+          id: 205,
           title: "USB-C Hub Multiport",
           price: 45.99,
           originalPrice: 59.99,
@@ -117,7 +650,7 @@ const Shop = () => {
           seller: "TechGlobal Inc"
         },
         {
-          id: 6,
+          id: 206,
           title: "Bluetooth Speaker Pro",
           price: 149.99,
           originalPrice: 199.99,
@@ -129,7 +662,7 @@ const Shop = () => {
       ],
       'ecowear-fashion': [
         {
-          id: 7,
+          id: 207,
           title: "Organic Cotton T-Shirt",
           price: 29.99,
           originalPrice: 39.99,
@@ -137,10 +670,10 @@ const Shop = () => {
           reviews: 890,
           image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
           seller: "EcoWear Fashion",
-          badge: productId === "7" ? "Featured" : undefined
+          badge: productId === "207" ? "Featured" : undefined
         },
         {
-          id: 8,
+          id: 208,
           title: "Recycled Denim Jeans",
           price: 89.99,
           originalPrice: 119.99,
@@ -150,7 +683,7 @@ const Shop = () => {
           seller: "EcoWear Fashion"
         },
         {
-          id: 9,
+          id: 209,
           title: "Bamboo Fiber Hoodie",
           price: 69.99,
           originalPrice: 89.99,

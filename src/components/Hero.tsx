@@ -219,10 +219,28 @@ const Hero = () => {
 
   const handleKnowMoreClick = () => {
     console.log('Product clicked:', currentProduct.name);
-    // Navigate to specific brand store for this product
-    const storeId = currentProduct.brand.toLowerCase().replace(/\s+/g, '-') + '-store';
-    console.log('Navigating to:', `/shop/${storeId}?product=${currentProduct.id}`);
-    navigate(`/shop/${storeId}?product=${currentProduct.id}`);
+    // Map brand names to actual shop IDs
+    const brandToShopMap: { [key: string]: string } = {
+      'Alibaba Electronics': 'alibaba-electronics',
+      'Conta Tech': 'conta-tech', 
+      'ViewMax Pro': 'viewmax-pro',
+      'KeyCraft': 'keycraft',
+      'SoundWave Audio': 'soundwave-audio',
+      'StyleMax': 'stylemax',
+      'FashionHub': 'fashionhub',
+      'TimeElite': 'timeelite',
+      'VisionCraft': 'visioncraft',
+      'LuxeBags Co': 'luxebags-co',
+      'BrewMaster': 'brewmaster',
+      'CleanAir Pro': 'cleanair-pro',
+      'AutoClean': 'autoclean',
+      'ThermoTech': 'thermotech',
+      'LightWave': 'lightwave'
+    };
+    
+    const shopId = brandToShopMap[currentProduct.brand] || 'techglobal-inc';
+    console.log('Navigating to:', `/shop/${shopId}?product=${currentProduct.id}`);
+    navigate(`/shop/${shopId}?product=${currentProduct.id}`);
   };
 
   const handleProductClick = (e: React.MouseEvent) => {
