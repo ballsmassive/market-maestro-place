@@ -310,19 +310,19 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] bg-gradient-hero">
+    <section className="relative min-h-[35vh] sm:min-h-[40vh] lg:max-h-[45vh] bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Product slideshow - Responsive Flex Layout */}
-      <div className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center p-2 xs:p-3 sm:p-4 md:p-5">
+      {/* Product slideshow - Ultra Compact Layout */}
+      <div className="relative w-full min-h-[35vh] sm:min-h-[40vh] lg:max-h-[45vh] flex items-center justify-center p-1.5 xs:p-2 sm:p-2.5 md:p-3">
         <div className="w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl animate-product-slide-in">
           
-          {/* Main Product Container - Flexible Layout */}
-          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl md:rounded-3xl p-2 xs:p-3 sm:p-4 md:p-5 shadow-neon space-y-2 xs:space-y-3 sm:space-y-4 md:space-y-5">
+          {/* Main Product Container - Ultra Compact */}
+          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl md:rounded-3xl p-1.5 xs:p-2 sm:p-2.5 md:p-3 shadow-neon space-y-1 xs:space-y-1.5 sm:space-y-2 md:space-y-2.5">
             
-            {/* Product Image Section */}
+            {/* Product Image Section - Compact */}
             <div className="relative group w-full">
-              <div className="aspect-[5/4] sm:aspect-[3/2] md:aspect-[16/9] w-full overflow-hidden rounded-lg sm:rounded-xl">
+              <div className="aspect-[4/3] sm:aspect-[3/2] md:aspect-[5/3] w-full overflow-hidden rounded-lg sm:rounded-xl">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
@@ -330,35 +330,35 @@ const Hero = () => {
                 />
               </div>
               
-              {/* Discount Badge */}
-              <div className="absolute top-2 xs:top-2.5 sm:top-3 right-2 xs:right-2.5 sm:right-3 bg-gradient-neon px-2 py-0.5 xs:px-2.5 xs:py-1 sm:px-3 sm:py-1.5 rounded-full shadow-neon-intense pointer-events-none">
-                <span className="text-black font-bold text-xs xs:text-sm sm:text-base">{currentProduct.discount}</span>
+              {/* Discount Badge - Compact */}
+              <div className="absolute top-1.5 xs:top-2 sm:top-2.5 right-1.5 xs:right-2 sm:right-2.5 bg-gradient-neon px-1.5 py-0.5 xs:px-2 xs:py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-neon-intense pointer-events-none">
+                <span className="text-black font-bold text-xs xs:text-sm">{currentProduct.discount}</span>
               </div>
             </div>
 
-            {/* Product Info Section */}
-            <div className="flex flex-col items-center text-center space-y-2 xs:space-y-2.5 sm:space-y-3 md:space-y-4 py-1 xs:py-2 sm:py-3">
-              <h2 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary-foreground leading-tight">
+            {/* Product Info Section - Ultra Compact */}
+            <div className="flex flex-col items-center text-center space-y-1 xs:space-y-1.5 sm:space-y-2 py-0.5 xs:py-1 sm:py-1.5">
+              <h2 className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-primary-foreground leading-tight">
                 {currentProduct.name}
               </h2>
               
-              {/* Rating */}
-              <div className="flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2">
+              {/* Rating - Compact */}
+              <div className="flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-1.5">
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4 ${
+                    className={`h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-3.5 sm:w-3.5 ${
                       i < Math.floor(currentProduct.rating) 
                         ? 'text-neon-accent fill-current' 
                         : 'text-muted-foreground'
                     }`} 
                   />
                 ))}
-                <span className="text-primary-foreground/80 ml-1 xs:ml-1.5 sm:ml-2 text-xs xs:text-sm sm:text-base">{currentProduct.rating}</span>
+                <span className="text-primary-foreground/80 ml-0.5 xs:ml-1 sm:ml-1.5 text-xs xs:text-sm">{currentProduct.rating}</span>
               </div>
               
-              {/* SHOP NOW BUTTON */}
-              <div className="w-full flex justify-center pt-1 xs:pt-2 sm:pt-3">
+              {/* SHOP NOW BUTTON - Compact */}
+              <div className="w-full flex justify-center pt-0.5 xs:pt-1 sm:pt-1.5">
                 <button
                   onClick={() => {
                     console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
@@ -370,46 +370,46 @@ const Hero = () => {
                     text-black font-bold 
                     transition-all duration-300 
                     hover:scale-105 hover:shadow-neon-glow
-                    px-5 py-2.5 xs:px-6 xs:py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4
-                    text-sm xs:text-base sm:text-lg
+                    px-4 py-2 xs:px-5 xs:py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-3.5
+                    text-xs xs:text-sm sm:text-base
                     rounded-lg xs:rounded-xl
                     shadow-neon-intense 
                     border-2 border-transparent hover:border-neon-primary/50
                     cursor-pointer select-none
-                    flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3
-                    min-w-[120px] xs:min-w-[140px] sm:min-w-[160px] md:min-w-[180px]
+                    flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-2.5
+                    min-w-[100px] xs:min-w-[120px] sm:min-w-[140px] md:min-w-[160px]
                     touch-manipulation
                   "
                   type="button"
                 >
                   Shop Now
-                  <ArrowRight className="h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
+                  <ArrowRight className="h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4" />
                 </button>
               </div>
             </div>
 
-            {/* Bottom Section - Brand Info & Navigation */}
-            <div className="flex items-center justify-between gap-2 xs:gap-3 pt-1 xs:pt-2 sm:pt-3">
-              {/* Brand Info */}
-              <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg xs:rounded-xl px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-3 shadow-neon flex-shrink min-w-0">
+            {/* Bottom Section - Ultra Compact */}
+            <div className="flex items-center justify-between gap-1.5 xs:gap-2 pt-0.5 xs:pt-1 sm:pt-1.5">
+              {/* Brand Info - Compact */}
+              <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-2.5 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg xs:rounded-xl px-1.5 py-1 xs:px-2 xs:py-1.5 sm:px-3 sm:py-2 shadow-neon flex-shrink min-w-0">
                 <img 
                   src={currentProduct.brandLogo} 
                   alt={`${currentProduct.brand} logo`}
-                  className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full object-cover border-2 border-neon-primary/30 flex-shrink-0"
+                  className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full object-cover border-2 border-neon-primary/30 flex-shrink-0"
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs sm:text-sm text-primary-foreground/70">By</div>
-                  <div className="text-xs xs:text-sm sm:text-base md:text-lg font-bold text-neon-primary truncate">{currentProduct.brand}</div>
+                  <div className="text-xs text-primary-foreground/70">By</div>
+                  <div className="text-xs xs:text-sm sm:text-base font-bold text-neon-primary truncate">{currentProduct.brand}</div>
                 </div>
               </div>
 
-              {/* Navigation Dots */}
-              <div className="flex items-center gap-1.5 xs:gap-2 flex-shrink-0">
+              {/* Navigation Dots - Compact */}
+              <div className="flex items-center gap-1 xs:gap-1.5 flex-shrink-0">
                 {products.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentProductIndex(index)}
-                    className={`w-2.5 h-2.5 xs:w-3 xs:h-3 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
+                    className={`w-2 h-2 xs:w-2.5 xs:h-2.5 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
                       index === currentProductIndex 
                         ? 'bg-neon-primary shadow-neon' 
                         : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
