@@ -310,93 +310,109 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-screen bg-gradient-hero overflow-hidden flex items-center justify-center">
+    <section className="relative h-screen bg-gradient-hero overflow-hidden">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Product slideshow */}
-      <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 animate-product-slide-in">
-        <div className="relative bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-neon">
+      {/* Product slideshow - Clean Grid Layout */}
+      <div className="relative h-full w-full flex items-center justify-center px-4 sm:px-6">
+        <div className="w-full max-w-4xl animate-product-slide-in">
           
-          {/* Product Image */}
-          <div className="relative mb-6 group z-10">
-            <img 
-              src={currentProduct.image}
-              alt={currentProduct.name}
-              className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
-            />
+          {/* Main Product Container - CSS Grid Layout */}
+          <div className="grid grid-rows-[auto_1fr_auto] gap-6 h-auto max-h-[90vh] bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-neon">
             
-            {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none z-20">
-              <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
+            {/* Product Image Section */}
+            <div className="relative group">
+              <img 
+                src={currentProduct.image}
+                alt={currentProduct.name}
+                className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
+              />
+              
+              {/* Discount Badge - Positioned over image only */}
+              <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none">
+                <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
+              </div>
             </div>
-          </div>
 
-          {/* Product Info and Shop Now Button */}
-          <div className="text-center mb-6 relative z-50">
-            <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground mb-2">
-              {currentProduct.name}
-            </h2>
-            <div className="flex items-center justify-center gap-1 sm:gap-2 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star 
-                  key={i} 
-                  className={`h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
-                    i < Math.floor(currentProduct.rating) 
-                      ? 'text-neon-accent fill-current' 
-                      : 'text-muted-foreground'
-                  }`} 
-                />
-              ))}
-              <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
-            </div>
-            
-            {/* Shop Now Button - UNIVERSALLY CLICKABLE */}
-            <div className="relative z-[9999]">
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleProductClick(e);
-                }}
-                className={`bg-gradient-neon hover:bg-gradient-neon/90 text-black font-bold transition-all duration-300 hover:scale-105 ${
-                  isMobile ? 'px-8 py-4 text-lg' : 'px-12 py-5 text-xl'
-                } rounded-xl shadow-neon-intense hover:shadow-neon-glow border-2 border-transparent hover:border-neon-primary/50`}
-                size={isMobile ? "lg" : "lg"}
-              >
-                <span className="flex items-center gap-3">
+            {/* Product Info Section - NO BACKDROP BLUR */}
+            <div className="flex flex-col items-center justify-center text-center space-y-4 sm:space-y-6">
+              <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground">
+                {currentProduct.name}
+              </h2>
+              
+              {/* Rating */}
+              <div className="flex items-center justify-center gap-1 sm:gap-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={`h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
+                      i < Math.floor(currentProduct.rating) 
+                        ? 'text-neon-accent fill-current' 
+                        : 'text-muted-foreground'
+                    }`} 
+                  />
+                ))}
+                <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
+              </div>
+              
+              {/* SHOP NOW BUTTON - ISOLATED CONTAINER */}
+              <div className="relative w-full flex justify-center py-2">
+                <button
+                  onClick={() => {
+                    console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
+                    handleKnowMoreClick();
+                  }}
+                  className={`
+                    relative z-50 
+                    bg-gradient-neon hover:bg-gradient-neon/90 
+                    text-black font-bold 
+                    transition-all duration-300 
+                    hover:scale-105 hover:shadow-neon-glow
+                    ${isMobile ? 'px-8 py-4 text-lg' : 'px-12 py-6 text-xl'}
+                    rounded-xl shadow-neon-intense 
+                    border-2 border-transparent hover:border-neon-primary/50
+                    cursor-pointer select-none
+                    flex items-center justify-center gap-3
+                    min-w-[200px]
+                  `}
+                  type="button"
+                >
                   Shop Now
                   <ArrowRight className={isMobile ? "h-5 w-5" : "h-6 w-6"} />
-                </span>
-              </Button>
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Brand Info - Bottom Left */}
-          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex items-center gap-2 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-3 shadow-neon">
-            <img 
-              src={currentProduct.brandLogo} 
-              alt={`${currentProduct.brand} logo`}
-              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-neon-primary/30"
-            />
-            <div>
-              <div className="text-xs sm:text-sm text-primary-foreground/70">By</div>
-              <div className="text-sm sm:text-lg font-bold text-neon-primary">{currentProduct.brand}</div>
+            {/* Bottom Section - Brand Info & Navigation */}
+            <div className="relative flex items-end justify-between">
+              {/* Brand Info */}
+              <div className="flex items-center gap-2 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-3 shadow-neon">
+                <img 
+                  src={currentProduct.brandLogo} 
+                  alt={`${currentProduct.brand} logo`}
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-neon-primary/30"
+                />
+                <div>
+                  <div className="text-xs sm:text-sm text-primary-foreground/70">By</div>
+                  <div className="text-sm sm:text-lg font-bold text-neon-primary">{currentProduct.brand}</div>
+                </div>
+              </div>
+
+              {/* Navigation Dots */}
+              <div className="flex items-center gap-2">
+                {products.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentProductIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                      index === currentProductIndex 
+                        ? 'bg-neon-primary shadow-neon' 
+                        : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {products.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentProductIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentProductIndex 
-                    ? 'bg-neon-primary shadow-neon' 
-                    : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
-                }`}
-              />
-            ))}
           </div>
         </div>
       </div>
