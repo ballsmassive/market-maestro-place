@@ -310,7 +310,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gradient-to-br from-purple-600 via-blue-600 to-purple-800 overflow-hidden">
+    <section className="relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] bg-gradient-to-br from-purple-600 via-blue-600 to-purple-800 overflow-hidden transition-all duration-300">
       <div className="absolute inset-0 bg-black/20" />
       
       {/* Animated background elements */}
@@ -330,20 +330,20 @@ const Hero = () => {
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 h-full flex items-center">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10 h-full flex items-center py-8 sm:py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             
             {/* Left Side - Bold Text & CTA */}
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left order-2 lg:order-1">
               <div className="mb-6">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-tight mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-4 transition-all duration-300">
                   <span className="block">{currentProduct.discount}</span>
-                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-yellow-300">
+                  <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-yellow-300">
                     on Premium Brands
                   </span>
                 </h1>
-                <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-2xl">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl mx-auto lg:mx-0 transition-all duration-300">
                   Discover millions of products from trusted sellers worldwide. Limited time offer!
                 </p>
               </div>
@@ -354,41 +354,41 @@ const Hero = () => {
                 className="
                   bg-yellow-400 hover:bg-yellow-300 
                   text-black font-bold 
-                  px-8 py-4 sm:px-12 sm:py-6 
-                  text-lg sm:text-xl md:text-2xl
+                  px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 lg:px-12 lg:py-6
+                  text-base sm:text-lg md:text-xl lg:text-2xl
                   rounded-full
                   transition-all duration-300
                   hover:scale-105 hover:shadow-2xl
                   shadow-xl
                   cursor-pointer
-                  flex items-center justify-center gap-3
+                  flex items-center justify-center gap-2 sm:gap-3
                   mx-auto lg:mx-0
-                  max-w-xs sm:max-w-sm
+                  w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg
                 "
               >
                 <span>Shop Now</span>
-                <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" />
+                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8" />
               </button>
 
               {/* Terms */}
-              <p className="text-sm text-white/70 mt-4">
+              <p className="text-xs sm:text-sm text-white/70 mt-4 transition-all duration-300">
                 Terms apply. Limited time offer.
               </p>
             </div>
 
             {/* Right Side - Product Showcase */}
-            <div className="relative">
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 lg:p-8 shadow-2xl">
+            <div className="relative order-1 lg:order-2">
+              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl transition-all duration-300 mx-auto max-w-sm sm:max-w-md lg:max-w-lg">
                 
                 {/* Featured Product */}
-                <div className="text-center mb-6">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Featured Today</h3>
-                  <p className="text-white/80">{currentProduct.name}</p>
+                <div className="text-center mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 transition-all duration-300">Featured Today</h3>
+                  <p className="text-white/80 text-sm sm:text-base transition-all duration-300 truncate px-2">{currentProduct.name}</p>
                 </div>
 
                 {/* Product Image */}
-                <div className="relative group mb-6">
-                  <div className="w-full h-48 sm:h-64 lg:h-80 overflow-hidden rounded-xl">
+                <div className="relative group mb-4 sm:mb-6">
+                  <div className="w-full h-40 sm:h-48 md:h-56 lg:h-64 overflow-hidden rounded-xl">
                     <img 
                       src={currentProduct.image}
                       alt={currentProduct.name}
@@ -397,36 +397,38 @@ const Hero = () => {
                   </div>
                   
                   {/* Floating Discount Badge */}
-                  <div className="absolute -top-4 -right-4 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg animate-pulse">
+                  <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-red-500 text-white px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 rounded-full font-bold text-sm sm:text-base lg:text-lg shadow-lg animate-pulse transition-all duration-300">
                     {currentProduct.discount}
                   </div>
                 </div>
 
                 {/* Product Info */}
-                <div className="text-center">
+                <div className="text-center px-2">
                   {/* Rating */}
-                  <div className="flex items-center justify-center gap-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className={`h-5 w-5 ${
-                          i < Math.floor(currentProduct.rating) 
-                            ? 'text-yellow-400 fill-current' 
-                            : 'text-white/30'
-                        }`} 
-                      />
-                    ))}
-                    <span className="text-white ml-2 font-semibold">{currentProduct.rating}</span>
+                  <div className="flex items-center justify-center gap-1 mb-3 flex-wrap">
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={`h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300 ${
+                            i < Math.floor(currentProduct.rating) 
+                              ? 'text-yellow-400 fill-current' 
+                              : 'text-white/30'
+                          }`} 
+                        />
+                      ))}
+                    </div>
+                    <span className="text-white ml-1 sm:ml-2 font-semibold text-sm sm:text-base transition-all duration-300">{currentProduct.rating}</span>
                   </div>
                   
                   {/* Brand */}
-                  <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="flex items-center justify-center gap-2 mb-4 flex-wrap">
                     <img 
                       src={currentProduct.brandLogo} 
                       alt={`${currentProduct.brand} logo`}
-                      className="w-6 h-6 rounded-full object-cover"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover flex-shrink-0"
                     />
-                    <span className="text-yellow-300 font-semibold">{currentProduct.brand}</span>
+                    <span className="text-yellow-300 font-semibold text-sm sm:text-base transition-all duration-300 truncate max-w-[150px] sm:max-w-[200px]">{currentProduct.brand}</span>
                   </div>
 
                   {/* Shop Button */}
@@ -436,20 +438,21 @@ const Hero = () => {
                       bg-gradient-to-r from-pink-500 to-purple-600 
                       hover:from-pink-600 hover:to-purple-700
                       text-white font-bold 
-                      px-6 py-3 
+                      px-4 py-2 sm:px-6 sm:py-3
+                      text-sm sm:text-base
                       rounded-full
                       transition-all duration-300
                       hover:scale-105 hover:shadow-xl
                       w-full
                     "
                   >
-                    Explore {currentProduct.brand}
+                    <span className="truncate">Explore {currentProduct.brand}</span>
                   </button>
                 </div>
               </div>
 
               {/* Navigation Dots */}
-              <div className="flex justify-center gap-2 mt-6">
+              <div className="flex justify-center gap-2 mt-4 sm:mt-6 flex-wrap">
                 {products.map((_, index) => (
                   <button
                     key={index}
@@ -458,7 +461,7 @@ const Hero = () => {
                       e.stopPropagation();
                       setCurrentProductIndex(index);
                     }}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                       index === currentProductIndex 
                         ? 'bg-yellow-400 scale-125' 
                         : 'bg-white/30 hover:bg-white/50'
@@ -473,7 +476,7 @@ const Hero = () => {
       </div>
 
       {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
