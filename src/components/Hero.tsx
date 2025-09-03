@@ -310,115 +310,146 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[35vh] sm:h-[40vh] lg:h-[45vh] bg-gradient-hero">
-      <div className="absolute inset-0 bg-black/30" />
+    <section className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gradient-to-br from-purple-600 via-blue-600 to-purple-800 overflow-hidden">
+      <div className="absolute inset-0 bg-black/20" />
       
-      {/* Enhanced Amazon-style Product Banner */}
-      <div className="relative w-full h-full flex items-center justify-center px-2 sm:px-4 lg:px-8">
-        <div className="w-full max-w-7xl animate-product-slide-in">
-          
-          {/* Horizontal Product Layout */}
-          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 shadow-neon h-full min-h-0">
+      {/* Animated background elements */}
+      <div className="absolute inset-0">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main Hero Content */}
+      <div className="relative z-10 h-full flex items-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
-            {/* Product Image - Left Side - Rectangular & Bigger */}
-            <div className="relative group flex-shrink-0">
-              <div className="w-48 h-36 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 overflow-hidden rounded-lg aspect-[4/3]">
-                <img 
-                  src={currentProduct.image}
-                  alt={currentProduct.name}
-                  className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
-                />
+            {/* Left Side - Bold Text & CTA */}
+            <div className="text-center lg:text-left">
+              <div className="mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-tight mb-4">
+                  <span className="block">{currentProduct.discount}</span>
+                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-yellow-300">
+                    on Premium Brands
+                  </span>
+                </h1>
+                <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-2xl">
+                  Discover millions of products from trusted sellers worldwide. Limited time offer!
+                </p>
               </div>
-              
-              {/* Discount Badge */}
-              <div className="absolute -top-2 -right-2 bg-gradient-neon px-2 py-1 rounded-full shadow-neon-intense z-10">
-                <span className="text-black font-bold text-xs sm:text-sm">{currentProduct.discount}</span>
-              </div>
+
+              {/* Large CTA Button */}
+              <button
+                onClick={handleKnowMoreClick}
+                className="
+                  bg-yellow-400 hover:bg-yellow-300 
+                  text-black font-bold 
+                  px-8 py-4 sm:px-12 sm:py-6 
+                  text-lg sm:text-xl md:text-2xl
+                  rounded-full
+                  transition-all duration-300
+                  hover:scale-105 hover:shadow-2xl
+                  shadow-xl
+                  cursor-pointer
+                  flex items-center justify-center gap-3
+                  mx-auto lg:mx-0
+                  max-w-xs sm:max-w-sm
+                "
+              >
+                <span>Shop Now</span>
+                <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" />
+              </button>
+
+              {/* Terms */}
+              <p className="text-sm text-white/70 mt-4">
+                Terms apply. Limited time offer.
+              </p>
             </div>
 
-            {/* Product Info - Center */}
-            <div className="flex-1 px-2 sm:px-4 lg:px-6 flex flex-col justify-center min-h-0">
-              <h2 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-primary-foreground leading-tight line-clamp-2">
-                {currentProduct.name}
-              </h2>
-              
-              {/* Rating - Compact */}
-              <div className="flex items-center gap-1 mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 ${
-                      i < Math.floor(currentProduct.rating) 
-                        ? 'text-neon-accent fill-current' 
-                        : 'text-muted-foreground'
-                    }`} 
-                  />
-                ))}
-                <span className="text-primary-foreground/80 ml-1 text-xs sm:text-sm">{currentProduct.rating}</span>
-              </div>
-              
-              {/* Brand Info - Inline */}
-              <div className="flex items-center gap-1.5 sm:gap-2 mt-1">
-                <img 
-                  src={currentProduct.brandLogo} 
-                  alt={`${currentProduct.brand} logo`}
-                  className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full object-cover"
-                />
-                <span className="text-xs sm:text-sm text-neon-primary font-medium truncate">{currentProduct.brand}</span>
-              </div>
-            </div>
+            {/* Right Side - Product Showcase */}
+            <div className="relative">
+              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 lg:p-8 shadow-2xl">
+                
+                {/* Featured Product */}
+                <div className="text-center mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Featured Today</h3>
+                  <p className="text-white/80">{currentProduct.name}</p>
+                </div>
 
-            {/* Action Section - Right Side - Mobile Optimized */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-2 sm:gap-3 z-20">
-              {/* Shop Now Button - Mobile Optimized & Fully Clickable */}
-              <div className="relative z-30">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
-                    handleKnowMoreClick();
-                  }}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation(); 
-                  }}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🚀 TOUCH SHOP NOW!', currentProduct.name);
-                    handleKnowMoreClick();
-                  }}
-                  className="
-                    relative
-                    bg-gradient-neon hover:bg-gradient-neon/90 
-                    text-black font-bold 
-                    transition-all duration-200 
-                    hover:scale-105 hover:shadow-neon-glow
-                    px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4
-                    text-xs sm:text-sm md:text-base
-                    rounded-md sm:rounded-lg
-                    shadow-neon-intense 
-                    cursor-pointer select-none
-                    flex items-center justify-center gap-1.5 sm:gap-2
-                    touch-manipulation
-                    border-none outline-none
-                    active:scale-95
-                    min-w-[80px] sm:min-w-[100px] md:min-w-[120px] lg:min-w-[140px]
-                    min-h-[32px] sm:min-h-[36px] md:min-h-[40px] lg:min-h-[44px]
-                    no-tap-highlight
-                    focus:ring-2 focus:ring-neon-primary focus:ring-opacity-50
-                  "
-                  type="button"
-                  aria-label={`Shop for ${currentProduct.name}`}
-                >
-                  <span>Shop Now</span>
-                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 flex-shrink-0" />
-                </button>
+                {/* Product Image */}
+                <div className="relative group mb-6">
+                  <div className="w-full h-48 sm:h-64 lg:h-80 overflow-hidden rounded-xl">
+                    <img 
+                      src={currentProduct.image}
+                      alt={currentProduct.name}
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  
+                  {/* Floating Discount Badge */}
+                  <div className="absolute -top-4 -right-4 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg animate-pulse">
+                    {currentProduct.discount}
+                  </div>
+                </div>
+
+                {/* Product Info */}
+                <div className="text-center">
+                  {/* Rating */}
+                  <div className="flex items-center justify-center gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-5 w-5 ${
+                          i < Math.floor(currentProduct.rating) 
+                            ? 'text-yellow-400 fill-current' 
+                            : 'text-white/30'
+                        }`} 
+                      />
+                    ))}
+                    <span className="text-white ml-2 font-semibold">{currentProduct.rating}</span>
+                  </div>
+                  
+                  {/* Brand */}
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <img 
+                      src={currentProduct.brandLogo} 
+                      alt={`${currentProduct.brand} logo`}
+                      className="w-6 h-6 rounded-full object-cover"
+                    />
+                    <span className="text-yellow-300 font-semibold">{currentProduct.brand}</span>
+                  </div>
+
+                  {/* Shop Button */}
+                  <button
+                    onClick={handleKnowMoreClick}
+                    className="
+                      bg-gradient-to-r from-pink-500 to-purple-600 
+                      hover:from-pink-600 hover:to-purple-700
+                      text-white font-bold 
+                      px-6 py-3 
+                      rounded-full
+                      transition-all duration-300
+                      hover:scale-105 hover:shadow-xl
+                      w-full
+                    "
+                  >
+                    Explore {currentProduct.brand}
+                  </button>
+                </div>
               </div>
-              
-              {/* Navigation Dots - Mobile Friendly */}
-              <div className="flex sm:flex-row flex-col items-center gap-1 sm:gap-1.5">
+
+              {/* Navigation Dots */}
+              <div className="flex justify-center gap-2 mt-6">
                 {products.map((_, index) => (
                   <button
                     key={index}
@@ -427,11 +458,10 @@ const Hero = () => {
                       e.stopPropagation();
                       setCurrentProductIndex(index);
                     }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 cursor-pointer touch-manipulation no-tap-highlight ${
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
                       index === currentProductIndex 
-                        ? 'bg-neon-primary shadow-neon scale-110' 
-                        : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
+                        ? 'bg-yellow-400 scale-125' 
+                        : 'bg-white/30 hover:bg-white/50'
                     }`}
                     aria-label={`Go to product ${index + 1}`}
                   />
@@ -441,6 +471,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Bottom Gradient Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
