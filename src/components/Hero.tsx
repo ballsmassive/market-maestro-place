@@ -313,16 +313,16 @@ const Hero = () => {
     <section className="relative h-[45vh] sm:h-[50vh] bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Product slideshow - Balanced Layout */}
-      <div className="relative w-full h-full flex items-center justify-center p-3 sm:p-4">
-        <div className="w-full max-w-md sm:max-w-2xl md:max-w-3xl animate-product-slide-in">
+      {/* Product slideshow - Centered Layout */}
+      <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3">
+        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl animate-product-slide-in">
           
-          {/* Main Product Container - Balanced */}
-          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-neon space-y-3">
+          {/* Main Product Container - Centered */}
+          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl p-2 sm:p-3 shadow-neon space-y-2">
             
-            {/* Product Image Section - Balanced */}
+            {/* Product Image Section - Centered */}
             <div className="relative group w-full">
-              <div className="aspect-[16/9] sm:aspect-[3/2] w-full overflow-hidden rounded-lg sm:rounded-xl max-h-48 sm:max-h-56">
+              <div className="aspect-square sm:aspect-[4/3] w-full overflow-hidden rounded-lg sm:rounded-xl">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
@@ -330,19 +330,19 @@ const Hero = () => {
                 />
               </div>
               
-              {/* Discount Badge - Balanced */}
+              {/* Discount Badge */}
               <div className="absolute top-2 right-2 bg-gradient-neon px-2 py-1 rounded-full shadow-neon-intense pointer-events-none">
                 <span className="text-black font-bold text-sm">{currentProduct.discount}</span>
               </div>
             </div>
 
-            {/* Product Info Section - Balanced */}
-            <div className="flex flex-col items-center text-center space-y-2 py-1">
+            {/* Product Info Section - Centered */}
+            <div className="flex flex-col items-center text-center space-y-2">
               <h2 className="text-base sm:text-lg md:text-xl font-bold text-primary-foreground leading-tight">
                 {currentProduct.name}
               </h2>
               
-              {/* Rating - Balanced */}
+              {/* Rating */}
               <div className="flex items-center justify-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star 
@@ -357,8 +357,8 @@ const Hero = () => {
                 <span className="text-primary-foreground/80 ml-1 text-sm">{currentProduct.rating}</span>
               </div>
               
-              {/* SHOP NOW BUTTON - Balanced */}
-              <div className="w-full flex justify-center pt-2">
+              {/* SHOP NOW BUTTON - Centered */}
+              <div className="w-full flex justify-center pt-1">
                 <button
                   onClick={() => {
                     console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
@@ -388,23 +388,23 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Bottom Section - Balanced */}
-            <div className="flex items-center justify-between gap-3 pt-1">
-              {/* Brand Info - Balanced */}
-              <div className="flex items-center gap-2 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-xl px-3 py-2 shadow-neon flex-shrink min-w-0">
+            {/* Bottom Section - Centered */}
+            <div className="flex flex-col items-center gap-2 pt-1">
+              {/* Brand Info - Centered */}
+              <div className="flex items-center gap-2 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-xl px-3 py-2 shadow-neon">
                 <img 
                   src={currentProduct.brandLogo} 
                   alt={`${currentProduct.brand} logo`}
-                  className="w-6 h-6 rounded-full object-cover border-2 border-neon-primary/30 flex-shrink-0"
+                  className="w-6 h-6 rounded-full object-cover border-2 border-neon-primary/30"
                 />
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs text-primary-foreground/70">By</div>
-                  <div className="text-sm font-bold text-neon-primary truncate">{currentProduct.brand}</div>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs text-primary-foreground/70">By</span>
+                  <span className="text-sm font-bold text-neon-primary">{currentProduct.brand}</span>
                 </div>
               </div>
 
-              {/* Navigation Dots - Balanced */}
-              <div className="flex items-center gap-1.5 flex-shrink-0">
+              {/* Navigation Dots - Centered */}
+              <div className="flex items-center gap-1.5">
                 {products.map((_, index) => (
                   <button
                     key={index}
