@@ -322,7 +322,7 @@ const Hero = () => {
             
             {/* Product Image - Left Side - Rectangular & Bigger */}
             <div className="relative group flex-shrink-0">
-              <div className="w-28 h-20 xs:w-32 xs:h-24 sm:w-40 sm:h-28 md:w-48 md:h-32 lg:w-56 lg:h-36 overflow-hidden rounded-lg aspect-[4/3]">
+              <div className="w-48 h-36 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 overflow-hidden rounded-lg aspect-[4/3]">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
