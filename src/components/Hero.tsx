@@ -310,106 +310,98 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[45vh] sm:h-[50vh] bg-gradient-hero">
+    <section className="relative h-[20vh] sm:h-[25vh] lg:h-[30vh] bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Product slideshow - Centered Layout */}
-      <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3">
-        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl animate-product-slide-in">
+      {/* Compact Amazon-style Product Banner */}
+      <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl animate-product-slide-in">
           
-          {/* Main Product Container - Centered */}
-          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl p-2 sm:p-3 shadow-neon space-y-2">
+          {/* Horizontal Product Layout */}
+          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-neon h-full">
             
-            {/* Product Image Section - Centered */}
-            <div className="relative group w-full">
-              <div className="aspect-square sm:aspect-[4/3] w-full overflow-hidden rounded-lg sm:rounded-xl">
+            {/* Product Image - Left Side */}
+            <div className="relative group flex-shrink-0">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 overflow-hidden rounded-lg">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
-                  className="w-full h-full object-cover shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               
               {/* Discount Badge */}
-              <div className="absolute top-2 right-2 bg-gradient-neon px-2 py-1 rounded-full shadow-neon-intense pointer-events-none">
-                <span className="text-black font-bold text-sm">{currentProduct.discount}</span>
+              <div className="absolute -top-1 -right-1 bg-gradient-neon px-1.5 py-0.5 rounded-full shadow-neon-intense">
+                <span className="text-black font-bold text-xs">{currentProduct.discount}</span>
               </div>
             </div>
 
-            {/* Product Info Section - Centered */}
-            <div className="flex flex-col items-center text-center space-y-2">
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-primary-foreground leading-tight">
+            {/* Product Info - Center */}
+            <div className="flex-1 px-4 sm:px-6 flex flex-col justify-center min-h-0">
+              <h2 className="text-sm sm:text-base lg:text-lg font-bold text-primary-foreground leading-tight truncate">
                 {currentProduct.name}
               </h2>
               
-              {/* Rating */}
-              <div className="flex items-center justify-center gap-1">
+              {/* Rating - Compact */}
+              <div className="flex items-center gap-1 mt-1">
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-4 w-4 ${
+                    className={`h-3 w-3 ${
                       i < Math.floor(currentProduct.rating) 
                         ? 'text-neon-accent fill-current' 
                         : 'text-muted-foreground'
                     }`} 
                   />
                 ))}
-                <span className="text-primary-foreground/80 ml-1 text-sm">{currentProduct.rating}</span>
+                <span className="text-primary-foreground/80 ml-1 text-xs">{currentProduct.rating}</span>
               </div>
               
-              {/* SHOP NOW BUTTON - Centered */}
-              <div className="w-full flex justify-center pt-1">
-                <button
-                  onClick={() => {
-                    console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
-                    handleKnowMoreClick();
-                  }}
-                  className="
-                    relative z-50 
-                    bg-gradient-neon hover:bg-gradient-neon/90 
-                    text-black font-bold 
-                    transition-all duration-300 
-                    hover:scale-105 hover:shadow-neon-glow
-                    px-6 py-3
-                    text-base
-                    rounded-xl
-                    shadow-neon-intense 
-                    border-2 border-transparent hover:border-neon-primary/50
-                    cursor-pointer select-none
-                    flex items-center justify-center gap-2
-                    min-w-[140px]
-                    touch-manipulation
-                  "
-                  type="button"
-                >
-                  Shop Now
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom Section - Centered */}
-            <div className="flex flex-col items-center gap-2 pt-1">
-              {/* Brand Info - Centered */}
-              <div className="flex items-center gap-2 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-xl px-3 py-2 shadow-neon">
+              {/* Brand Info - Inline */}
+              <div className="flex items-center gap-2 mt-1">
                 <img 
                   src={currentProduct.brandLogo} 
                   alt={`${currentProduct.brand} logo`}
-                  className="w-6 h-6 rounded-full object-cover border-2 border-neon-primary/30"
+                  className="w-4 h-4 rounded-full object-cover"
                 />
-                <div className="flex items-center gap-1">
-                  <span className="text-xs text-primary-foreground/70">By</span>
-                  <span className="text-sm font-bold text-neon-primary">{currentProduct.brand}</span>
-                </div>
+                <span className="text-xs text-neon-primary font-medium">{currentProduct.brand}</span>
               </div>
+            </div>
 
-              {/* Navigation Dots - Centered */}
-              <div className="flex items-center gap-1.5">
+            {/* Action Section - Right Side */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-2">
+              {/* Shop Now Button - Compact */}
+              <button
+                onClick={() => {
+                  console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
+                  handleKnowMoreClick();
+                }}
+                className="
+                  bg-gradient-neon hover:bg-gradient-neon/90 
+                  text-black font-bold 
+                  transition-all duration-300 
+                  hover:scale-105 hover:shadow-neon-glow
+                  px-4 py-2 sm:px-6 sm:py-3
+                  text-xs sm:text-sm
+                  rounded-lg
+                  shadow-neon-intense 
+                  cursor-pointer select-none
+                  flex items-center gap-1.5
+                  touch-manipulation
+                "
+                type="button"
+              >
+                Shop Now
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+              
+              {/* Navigation Dots - Vertical on mobile, horizontal on desktop */}
+              <div className="flex sm:flex-row flex-col items-center gap-1">
                 {products.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentProductIndex(index)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
+                    className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
                       index === currentProductIndex 
                         ? 'bg-neon-primary shadow-neon' 
                         : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
