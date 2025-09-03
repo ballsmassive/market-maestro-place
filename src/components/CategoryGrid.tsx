@@ -23,8 +23,8 @@ const categories = [
 
 const CategoryGrid = () => {
   const handleCategoryClick = (categoryName: string) => {
-    console.log(`Navigating to ${categoryName} category`);
-    // This would typically navigate to: `/category/${categoryName.toLowerCase().replace(/\s+/g, '-')}`
+    const categoryPath = categoryName.toLowerCase().replace(/\s+/g, '-').replace('&', '');
+    window.location.href = `/category/${categoryPath}`;
   };
 
   return (

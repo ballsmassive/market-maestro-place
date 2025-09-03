@@ -21,7 +21,11 @@ const Seller = () => {
               Join thousands of sellers reaching millions of customers worldwide. 
               Build your business with our powerful e-commerce platform.
             </p>
-            <Button size="lg" className="bg-neon-primary hover:bg-neon-primary/80">
+            <Button 
+              size="lg" 
+              className="bg-neon-primary hover:bg-neon-primary/80"
+              onClick={() => window.location.href = '/seller/register'}
+            >
               Start Selling Today
             </Button>
           </div>
@@ -74,7 +78,10 @@ const Seller = () => {
               <Input placeholder="Business Name" />
               <Input placeholder="Email Address" type="email" />
               <Input placeholder="Phone Number" type="tel" />
-              <Button className="w-full bg-neon-primary hover:bg-neon-primary/80">
+              <Button 
+                className="w-full bg-neon-primary hover:bg-neon-primary/80"
+                onClick={() => window.location.href = '/seller/register'}
+              >
                 Create Seller Account
               </Button>
             </CardContent>
