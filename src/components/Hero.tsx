@@ -310,101 +310,106 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-screen bg-gradient-hero overflow-hidden">
+    <section className="relative min-h-[100dvh] min-h-screen bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Product slideshow - Clean Grid Layout */}
-      <div className="relative h-full w-full flex items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-4xl animate-product-slide-in">
+      {/* Product slideshow - Responsive Flex Layout */}
+      <div className="relative w-full min-h-[100dvh] min-h-screen flex items-center justify-center p-3 xs:p-4 sm:p-6">
+        <div className="w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl animate-product-slide-in">
           
-          {/* Main Product Container - CSS Grid Layout */}
-          <div className="grid grid-rows-[auto_1fr_auto] gap-6 h-auto max-h-[90vh] bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-neon">
+          {/* Main Product Container - Flexible Layout */}
+          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl md:rounded-3xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-neon space-y-4 xs:space-y-5 sm:space-y-6 md:space-y-8">
             
             {/* Product Image Section */}
-            <div className="relative group">
-              <img 
-                src={currentProduct.image}
-                alt={currentProduct.name}
-                className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
-              />
+            <div className="relative group w-full">
+              <div className="aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] w-full overflow-hidden rounded-xl sm:rounded-2xl">
+                <img 
+                  src={currentProduct.image}
+                  alt={currentProduct.name}
+                  className="w-full h-full object-cover shadow-elegant transform transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
               
-              {/* Discount Badge - Positioned over image only */}
-              <div className="absolute top-4 right-4 bg-gradient-neon px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none">
-                <span className="text-black font-bold text-sm sm:text-lg">{currentProduct.discount}</span>
+              {/* Discount Badge */}
+              <div className="absolute top-2 xs:top-3 sm:top-4 right-2 xs:right-3 sm:right-4 bg-gradient-neon px-2 py-1 xs:px-3 xs:py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none">
+                <span className="text-black font-bold text-xs xs:text-sm sm:text-base md:text-lg">{currentProduct.discount}</span>
               </div>
             </div>
 
-            {/* Product Info Section - NO BACKDROP BLUR */}
-            <div className="flex flex-col items-center justify-center text-center space-y-4 sm:space-y-6">
-              <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary-foreground">
+            {/* Product Info Section */}
+            <div className="flex flex-col items-center text-center space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6 py-2 xs:py-3 sm:py-4">
+              <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground leading-tight">
                 {currentProduct.name}
               </h2>
               
               {/* Rating */}
-              <div className="flex items-center justify-center gap-1 sm:gap-2">
+              <div className="flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2">
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
+                    className={`h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
                       i < Math.floor(currentProduct.rating) 
                         ? 'text-neon-accent fill-current' 
                         : 'text-muted-foreground'
                     }`} 
                   />
                 ))}
-                <span className="text-primary-foreground/80 ml-2 text-sm sm:text-base">{currentProduct.rating}</span>
+                <span className="text-primary-foreground/80 ml-1 xs:ml-1.5 sm:ml-2 text-xs xs:text-sm sm:text-base">{currentProduct.rating}</span>
               </div>
               
-              {/* SHOP NOW BUTTON - ISOLATED CONTAINER */}
-              <div className="relative w-full flex justify-center py-2">
+              {/* SHOP NOW BUTTON */}
+              <div className="w-full flex justify-center pt-2 xs:pt-3 sm:pt-4">
                 <button
                   onClick={() => {
                     console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
                     handleKnowMoreClick();
                   }}
-                  className={`
+                  className="
                     relative z-50 
                     bg-gradient-neon hover:bg-gradient-neon/90 
                     text-black font-bold 
                     transition-all duration-300 
                     hover:scale-105 hover:shadow-neon-glow
-                    ${isMobile ? 'px-8 py-4 text-lg' : 'px-12 py-6 text-xl'}
-                    rounded-xl shadow-neon-intense 
+                    px-6 py-3 xs:px-7 xs:py-3.5 sm:px-10 sm:py-4 md:px-12 md:py-5
+                    text-sm xs:text-base sm:text-lg md:text-xl
+                    rounded-lg xs:rounded-xl
+                    shadow-neon-intense 
                     border-2 border-transparent hover:border-neon-primary/50
                     cursor-pointer select-none
-                    flex items-center justify-center gap-3
-                    min-w-[200px]
-                  `}
+                    flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3
+                    min-w-[140px] xs:min-w-[160px] sm:min-w-[180px] md:min-w-[200px]
+                    touch-manipulation
+                  "
                   type="button"
                 >
                   Shop Now
-                  <ArrowRight className={isMobile ? "h-5 w-5" : "h-6 w-6"} />
+                  <ArrowRight className="h-4 w-4 xs:h-4.5 xs:w-4.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                 </button>
               </div>
             </div>
 
             {/* Bottom Section - Brand Info & Navigation */}
-            <div className="relative flex items-end justify-between">
+            <div className="flex items-center justify-between gap-3 xs:gap-4 pt-2 xs:pt-3 sm:pt-4">
               {/* Brand Info */}
-              <div className="flex items-center gap-2 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-3 shadow-neon">
+              <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg xs:rounded-xl px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-3 shadow-neon flex-shrink min-w-0">
                 <img 
                   src={currentProduct.brandLogo} 
                   alt={`${currentProduct.brand} logo`}
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-neon-primary/30"
+                  className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full object-cover border-2 border-neon-primary/30 flex-shrink-0"
                 />
-                <div>
+                <div className="min-w-0 flex-1">
                   <div className="text-xs sm:text-sm text-primary-foreground/70">By</div>
-                  <div className="text-sm sm:text-lg font-bold text-neon-primary">{currentProduct.brand}</div>
+                  <div className="text-xs xs:text-sm sm:text-base md:text-lg font-bold text-neon-primary truncate">{currentProduct.brand}</div>
                 </div>
               </div>
 
               {/* Navigation Dots */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 xs:gap-2 flex-shrink-0">
                 {products.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentProductIndex(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                    className={`w-2.5 h-2.5 xs:w-3 xs:h-3 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
                       index === currentProductIndex 
                         ? 'bg-neon-primary shadow-neon' 
                         : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
