@@ -207,7 +207,7 @@ const ShopProductGrid = () => {
                   <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
                     {/* Shop Logo with neon border */}
                     <div className="relative flex-shrink-0">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-lg md:rounded-xl overflow-hidden border-2 border-neon-primary/20 group-hover:border-neon-primary/60 transition-colors shadow-neon">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-lg md:rounded-xl overflow-hidden border-2 border-neon-primary/20 group-hover:border-neon-primary/60 transition-colors shadow-neon">
                         <img 
                           src={shopData.shop.logo} 
                           alt={shopData.shop.name}

@@ -42,7 +42,7 @@ const ProductCard = ({
           <img
             src={image}
             alt={title}
-            className="w-full h-32 sm:h-36 md:h-40 object-cover"
+            className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-cover"
           />
           {badge && (
             <span className="absolute top-1.5 left-1.5 bg-neon-accent/20 text-neon-accent border border-neon-accent/30 px-1.5 py-0.5 rounded text-xs font-medium backdrop-blur-sm">
