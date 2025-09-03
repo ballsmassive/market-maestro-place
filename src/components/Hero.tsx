@@ -314,15 +314,15 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/30" />
       
       {/* Enhanced Amazon-style Product Banner */}
-      <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-6xl animate-product-slide-in">
+      <div className="relative w-full h-full flex items-center justify-center px-2 sm:px-4 lg:px-8">
+        <div className="w-full max-w-7xl animate-product-slide-in">
           
           {/* Horizontal Product Layout */}
-          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-neon h-full">
+          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 shadow-neon h-full min-h-0">
             
-            {/* Product Image - Left Side - Bigger */}
+            {/* Product Image - Left Side - Rectangular & Bigger */}
             <div className="relative group flex-shrink-0">
-              <div className="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 overflow-hidden rounded-lg">
+              <div className="w-28 h-20 xs:w-32 xs:h-24 sm:w-40 sm:h-28 md:w-48 md:h-32 lg:w-56 lg:h-36 overflow-hidden rounded-lg aspect-[4/3]">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
@@ -332,13 +332,13 @@ const Hero = () => {
               
               {/* Discount Badge */}
               <div className="absolute -top-2 -right-2 bg-gradient-neon px-2 py-1 rounded-full shadow-neon-intense z-10">
-                <span className="text-black font-bold text-sm">{currentProduct.discount}</span>
+                <span className="text-black font-bold text-xs sm:text-sm">{currentProduct.discount}</span>
               </div>
             </div>
 
             {/* Product Info - Center */}
-            <div className="flex-1 px-4 sm:px-6 flex flex-col justify-center min-h-0">
-              <h2 className="text-sm sm:text-base lg:text-lg font-bold text-primary-foreground leading-tight truncate">
+            <div className="flex-1 px-2 sm:px-4 lg:px-6 flex flex-col justify-center min-h-0">
+              <h2 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-primary-foreground leading-tight line-clamp-2">
                 {currentProduct.name}
               </h2>
               
@@ -347,72 +347,93 @@ const Hero = () => {
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-3 w-3 ${
+                    className={`h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 ${
                       i < Math.floor(currentProduct.rating) 
                         ? 'text-neon-accent fill-current' 
                         : 'text-muted-foreground'
                     }`} 
                   />
                 ))}
-                <span className="text-primary-foreground/80 ml-1 text-xs">{currentProduct.rating}</span>
+                <span className="text-primary-foreground/80 ml-1 text-xs sm:text-sm">{currentProduct.rating}</span>
               </div>
               
               {/* Brand Info - Inline */}
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex items-center gap-1.5 sm:gap-2 mt-1">
                 <img 
                   src={currentProduct.brandLogo} 
                   alt={`${currentProduct.brand} logo`}
-                  className="w-4 h-4 rounded-full object-cover"
+                  className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full object-cover"
                 />
-                <span className="text-xs text-neon-primary font-medium">{currentProduct.brand}</span>
+                <span className="text-xs sm:text-sm text-neon-primary font-medium truncate">{currentProduct.brand}</span>
               </div>
             </div>
 
-            {/* Action Section - Right Side */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-3 z-20">
-              {/* Shop Now Button - Enhanced Clickability */}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
-                  handleKnowMoreClick();
-                }}
-                onTouchStart={(e) => e.stopPropagation()}
-                className="
-                  relative z-30
-                  bg-gradient-neon hover:bg-gradient-neon/90 
-                  text-black font-bold 
-                  transition-all duration-300 
-                  hover:scale-105 hover:shadow-neon-glow
-                  px-5 py-3 sm:px-7 sm:py-4
-                  text-sm sm:text-base
-                  rounded-lg
-                  shadow-neon-intense 
-                  cursor-pointer select-none
-                  flex items-center gap-2
-                  touch-manipulation
-                  border-none outline-none
-                  active:scale-95
-                  min-w-[120px] sm:min-w-[140px]
-                "
-                type="button"
-              >
-                Shop Now
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-              </button>
+            {/* Action Section - Right Side - Mobile Optimized */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-2 sm:gap-3 z-20">
+              {/* Shop Now Button - Mobile Optimized & Fully Clickable */}
+              <div className="relative z-30">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
+                    handleKnowMoreClick();
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); 
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🚀 TOUCH SHOP NOW!', currentProduct.name);
+                    handleKnowMoreClick();
+                  }}
+                  className="
+                    relative
+                    bg-gradient-neon hover:bg-gradient-neon/90 
+                    text-black font-bold 
+                    transition-all duration-200 
+                    hover:scale-105 hover:shadow-neon-glow
+                    px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4
+                    text-xs sm:text-sm md:text-base
+                    rounded-md sm:rounded-lg
+                    shadow-neon-intense 
+                    cursor-pointer select-none
+                    flex items-center justify-center gap-1.5 sm:gap-2
+                    touch-manipulation
+                    border-none outline-none
+                    active:scale-95
+                    min-w-[80px] sm:min-w-[100px] md:min-w-[120px] lg:min-w-[140px]
+                    min-h-[32px] sm:min-h-[36px] md:min-h-[40px] lg:min-h-[44px]
+                    no-tap-highlight
+                    focus:ring-2 focus:ring-neon-primary focus:ring-opacity-50
+                  "
+                  type="button"
+                  aria-label={`Shop for ${currentProduct.name}`}
+                >
+                  <span>Shop Now</span>
+                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 flex-shrink-0" />
+                </button>
+              </div>
               
-              {/* Navigation Dots - Vertical on mobile, horizontal on desktop */}
-              <div className="flex sm:flex-row flex-col items-center gap-1">
+              {/* Navigation Dots - Mobile Friendly */}
+              <div className="flex sm:flex-row flex-col items-center gap-1 sm:gap-1.5">
                 {products.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentProductIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer touch-manipulation ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCurrentProductIndex(index);
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 cursor-pointer touch-manipulation no-tap-highlight ${
                       index === currentProductIndex 
-                        ? 'bg-neon-primary shadow-neon' 
+                        ? 'bg-neon-primary shadow-neon scale-110' 
                         : 'bg-primary-foreground/30 hover:bg-primary-foreground/50'
                     }`}
+                    aria-label={`Go to product ${index + 1}`}
                   />
                 ))}
               </div>
