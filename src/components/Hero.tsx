@@ -310,19 +310,19 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative min-h-[100dvh] min-h-screen bg-gradient-hero">
+    <section className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
       {/* Product slideshow - Responsive Flex Layout */}
-      <div className="relative w-full min-h-[100dvh] min-h-screen flex items-center justify-center p-3 xs:p-4 sm:p-6">
+      <div className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center p-2 xs:p-3 sm:p-4 md:p-5">
         <div className="w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl animate-product-slide-in">
           
           {/* Main Product Container - Flexible Layout */}
-          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl md:rounded-3xl p-3 xs:p-4 sm:p-6 md:p-8 shadow-neon space-y-4 xs:space-y-5 sm:space-y-6 md:space-y-8">
+          <div className="flex flex-col bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-xl sm:rounded-2xl md:rounded-3xl p-2 xs:p-3 sm:p-4 md:p-5 shadow-neon space-y-2 xs:space-y-3 sm:space-y-4 md:space-y-5">
             
             {/* Product Image Section */}
             <div className="relative group w-full">
-              <div className="aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] w-full overflow-hidden rounded-xl sm:rounded-2xl">
+              <div className="aspect-[5/4] sm:aspect-[3/2] md:aspect-[16/9] w-full overflow-hidden rounded-lg sm:rounded-xl">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
@@ -331,14 +331,14 @@ const Hero = () => {
               </div>
               
               {/* Discount Badge */}
-              <div className="absolute top-2 xs:top-3 sm:top-4 right-2 xs:right-3 sm:right-4 bg-gradient-neon px-2 py-1 xs:px-3 xs:py-1.5 sm:px-4 sm:py-2 rounded-full shadow-neon-intense pointer-events-none">
-                <span className="text-black font-bold text-xs xs:text-sm sm:text-base md:text-lg">{currentProduct.discount}</span>
+              <div className="absolute top-2 xs:top-2.5 sm:top-3 right-2 xs:right-2.5 sm:right-3 bg-gradient-neon px-2 py-0.5 xs:px-2.5 xs:py-1 sm:px-3 sm:py-1.5 rounded-full shadow-neon-intense pointer-events-none">
+                <span className="text-black font-bold text-xs xs:text-sm sm:text-base">{currentProduct.discount}</span>
               </div>
             </div>
 
             {/* Product Info Section */}
-            <div className="flex flex-col items-center text-center space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6 py-2 xs:py-3 sm:py-4">
-              <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground leading-tight">
+            <div className="flex flex-col items-center text-center space-y-2 xs:space-y-2.5 sm:space-y-3 md:space-y-4 py-1 xs:py-2 sm:py-3">
+              <h2 className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary-foreground leading-tight">
                 {currentProduct.name}
               </h2>
               
@@ -347,7 +347,7 @@ const Hero = () => {
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 ${
+                    className={`h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4 ${
                       i < Math.floor(currentProduct.rating) 
                         ? 'text-neon-accent fill-current' 
                         : 'text-muted-foreground'
@@ -358,7 +358,7 @@ const Hero = () => {
               </div>
               
               {/* SHOP NOW BUTTON */}
-              <div className="w-full flex justify-center pt-2 xs:pt-3 sm:pt-4">
+              <div className="w-full flex justify-center pt-1 xs:pt-2 sm:pt-3">
                 <button
                   onClick={() => {
                     console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
@@ -370,26 +370,26 @@ const Hero = () => {
                     text-black font-bold 
                     transition-all duration-300 
                     hover:scale-105 hover:shadow-neon-glow
-                    px-6 py-3 xs:px-7 xs:py-3.5 sm:px-10 sm:py-4 md:px-12 md:py-5
-                    text-sm xs:text-base sm:text-lg md:text-xl
+                    px-5 py-2.5 xs:px-6 xs:py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4
+                    text-sm xs:text-base sm:text-lg
                     rounded-lg xs:rounded-xl
                     shadow-neon-intense 
                     border-2 border-transparent hover:border-neon-primary/50
                     cursor-pointer select-none
                     flex items-center justify-center gap-2 xs:gap-2.5 sm:gap-3
-                    min-w-[140px] xs:min-w-[160px] sm:min-w-[180px] md:min-w-[200px]
+                    min-w-[120px] xs:min-w-[140px] sm:min-w-[160px] md:min-w-[180px]
                     touch-manipulation
                   "
                   type="button"
                 >
                   Shop Now
-                  <ArrowRight className="h-4 w-4 xs:h-4.5 xs:w-4.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                  <ArrowRight className="h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
             </div>
 
             {/* Bottom Section - Brand Info & Navigation */}
-            <div className="flex items-center justify-between gap-3 xs:gap-4 pt-2 xs:pt-3 sm:pt-4">
+            <div className="flex items-center justify-between gap-2 xs:gap-3 pt-1 xs:pt-2 sm:pt-3">
               {/* Brand Info */}
               <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 bg-glass-bg/80 backdrop-blur-sm border border-glass-border rounded-lg xs:rounded-xl px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-3 shadow-neon flex-shrink min-w-0">
                 <img 
