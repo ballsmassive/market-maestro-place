@@ -310,19 +310,19 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[20vh] sm:h-[25vh] lg:h-[30vh] bg-gradient-hero">
+    <section className="relative h-[35vh] sm:h-[40vh] lg:h-[45vh] bg-gradient-hero">
       <div className="absolute inset-0 bg-black/30" />
       
-      {/* Compact Amazon-style Product Banner */}
+      {/* Enhanced Amazon-style Product Banner */}
       <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-6xl animate-product-slide-in">
           
           {/* Horizontal Product Layout */}
-          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-neon h-full">
+          <div className="flex items-center bg-glass-bg/20 backdrop-blur-xl border border-glass-border rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-neon h-full">
             
-            {/* Product Image - Left Side */}
+            {/* Product Image - Left Side - Bigger */}
             <div className="relative group flex-shrink-0">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 overflow-hidden rounded-lg">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 overflow-hidden rounded-lg">
                 <img 
                   src={currentProduct.image}
                   alt={currentProduct.name}
@@ -331,8 +331,8 @@ const Hero = () => {
               </div>
               
               {/* Discount Badge */}
-              <div className="absolute -top-1 -right-1 bg-gradient-neon px-1.5 py-0.5 rounded-full shadow-neon-intense">
-                <span className="text-black font-bold text-xs">{currentProduct.discount}</span>
+              <div className="absolute -top-2 -right-2 bg-gradient-neon px-2 py-1 rounded-full shadow-neon-intense z-10">
+                <span className="text-black font-bold text-sm">{currentProduct.discount}</span>
               </div>
             </div>
 
@@ -369,30 +369,37 @@ const Hero = () => {
             </div>
 
             {/* Action Section - Right Side */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-2">
-              {/* Shop Now Button - Compact */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-3 z-20">
+              {/* Shop Now Button - Enhanced Clickability */}
               <button
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   console.log('🚀 SHOP NOW CLICKED!', currentProduct.name);
                   handleKnowMoreClick();
                 }}
+                onTouchStart={(e) => e.stopPropagation()}
                 className="
+                  relative z-30
                   bg-gradient-neon hover:bg-gradient-neon/90 
                   text-black font-bold 
                   transition-all duration-300 
                   hover:scale-105 hover:shadow-neon-glow
-                  px-4 py-2 sm:px-6 sm:py-3
-                  text-xs sm:text-sm
+                  px-5 py-3 sm:px-7 sm:py-4
+                  text-sm sm:text-base
                   rounded-lg
                   shadow-neon-intense 
                   cursor-pointer select-none
-                  flex items-center gap-1.5
+                  flex items-center gap-2
                   touch-manipulation
+                  border-none outline-none
+                  active:scale-95
+                  min-w-[120px] sm:min-w-[140px]
                 "
                 type="button"
               >
                 Shop Now
-                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
               
               {/* Navigation Dots - Vertical on mobile, horizontal on desktop */}
