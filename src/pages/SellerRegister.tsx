@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Upload, Store, Mail, User, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -42,12 +43,33 @@ const SellerRegister = () => {
     }
 
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      toast.success("Verification code sent to your email!");
-      setShowVerification(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('email-otp', {
+        body: {
+          email: formData.businessEmail,
+          action: 'send'
+        }
+      });
+
+      if (error) {
+        console.error('Error sending verification:', error);
+        toast.error("Failed to send verification code. Please try again.");
+        return;
+      }
+
+      if (data?.success) {
+        toast.success("Verification code sent to your email!");
+        setShowVerification(true);
+      } else {
+        toast.error(data?.message || "Failed to send verification code");
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const verifyEmail = async () => {
@@ -57,13 +79,34 @@ const SellerRegister = () => {
     }
 
     setIsLoading(true);
-    // Simulate verification
-    setTimeout(() => {
-      toast.success("Email verified successfully!");
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('email-otp', {
+        body: {
+          email: formData.businessEmail,
+          action: 'verify',
+          code: verificationCode
+        }
+      });
+
+      if (error) {
+        console.error('Error verifying code:', error);
+        toast.error("Failed to verify code. Please try again.");
+        return;
+      }
+
+      if (data?.success) {
+        toast.success("Email verified successfully!");
+        navigate("/seller/dashboard");
+      } else {
+        toast.error(data?.message || "Invalid verification code");
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
       setIsLoading(false);
-      // Navigate to seller dashboard
-      navigate("/seller/dashboard");
-    }, 1500);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
